@@ -21,16 +21,7 @@
       },
       "input":{"shape":"CreateClusterRequest"},
       "output":{"shape":"CreateClusterResponse"},
-      "errors":[
-        {"shape":"ResourceInUseException"},
-        {"shape":"ResourceLimitExceededException"},
-        {"shape":"InvalidParameterException"},
-        {"shape":"ClientException"},
-        {"shape":"ServerException"},
-        {"shape":"ServiceUnavailableException"},
-        {"shape":"UnsupportedAvailabilityZoneException"}
-      ],
-      "documentation":"<p>Creates an Amazon EKS control plane. </p> <p>The Amazon EKS control plane consists of control plane instances that run the Kubernetes software, such as <code>etcd</code> and the API server. The control plane runs in an account managed by AWS, and the Kubernetes API is exposed via the Amazon EKS API server endpoint. Each Amazon EKS cluster control plane is single-tenant and unique and runs on its own set of Amazon EC2 instances.</p> <p>The cluster control plane is provisioned across multiple Availability Zones and fronted by an Elastic Load Balancing Network Load Balancer. Amazon EKS also provisions elastic network interfaces in your VPC subnets to provide connectivity from the control plane instances to the nodes (for example, to support <code>kubectl exec</code>, <code>logs</code>, and <code>proxy</code> data flows).</p> <p>Amazon EKS nodes run in your AWS account and connect to your cluster's control plane via the Kubernetes API server endpoint and a certificate file that is created for your cluster.</p> <p>You can use the <code>endpointPublicAccess</code> and <code>endpointPrivateAccess</code> parameters to enable or disable public and private access to your cluster's Kubernetes API server endpoint. By default, public access is enabled, and private access is disabled. For more information, see <a href=\"https://docs.aws.amazon.com/eks/latest/userguide/cluster-endpoint.html\">Amazon EKS Cluster Endpoint Access Control</a> in the <i> <i>Amazon EKS User Guide</i> </i>. </p> <p>You can use the <code>logging</code> parameter to enable or disable exporting the Kubernetes control plane logs for your cluster to CloudWatch Logs. By default, cluster control plane logs aren't exported to CloudWatch Logs. For more information, see <a href=\"https://docs.aws.amazon.com/eks/latest/userguide/control-plane-logs.html\">Amazon EKS Cluster Control Plane Logs</a> in the <i> <i>Amazon EKS User Guide</i> </i>.</p> <note> <p>CloudWatch Logs ingestion, archive storage, and data scanning rates apply to exported control plane logs. For more information, see <a href=\"http://aws.amazon.com/cloudwatch/pricing/\">Amazon CloudWatch Pricing</a>.</p> </note> <p>Cluster creation typically takes between 10 and 15 minutes. After you create an Amazon EKS cluster, you must configure your Kubernetes tooling to communicate with the API server and launch nodes into your cluster. For more information, see <a href=\"https://docs.aws.amazon.com/eks/latest/userguide/managing-auth.html\">Managing Cluster Authentication</a> and <a href=\"https://docs.aws.amazon.com/eks/latest/userguide/launch-workers.html\">Launching Amazon EKS nodes</a> in the <i>Amazon EKS User Guide</i>.</p>"
+      "documentation":"<p>Creates Kubernetes cluster.</p>"
     },
     "DeleteCluster":{
       "name":"DeleteCluster",
@@ -40,14 +31,7 @@
       },
       "input":{"shape":"DeleteClusterRequest"},
       "output":{"shape":"DeleteClusterResponse"},
-      "errors":[
-        {"shape":"ResourceInUseException"},
-        {"shape":"ResourceNotFoundException"},
-        {"shape":"ClientException"},
-        {"shape":"ServerException"},
-        {"shape":"ServiceUnavailableException"}
-      ],
-      "documentation":"<p>Deletes the Amazon EKS cluster control plane.</p> <p>If you have active services in your cluster that are associated with a load balancer, you must delete those services before deleting the cluster so that the load balancers are deleted properly. Otherwise, you can have orphaned resources in your VPC that prevent you from being able to delete the VPC. For more information, see <a href=\"https://docs.aws.amazon.com/eks/latest/userguide/delete-cluster.html\">Deleting a Cluster</a> in the <i>Amazon EKS User Guide</i>.</p> <p>If you have managed node groups or Fargate profiles attached to the cluster, you must delete them first. For more information, see <a>DeleteNodegroup</a> and <a>DeleteFargateProfile</a>.</p>"
+      "documentation":"<p>Deletes Kubernetes cluster.</p>"
     },
     "DescribeCluster":{
       "name":"DescribeCluster",
@@ -57,13 +41,7 @@
       },
       "input":{"shape":"DescribeClusterRequest"},
       "output":{"shape":"DescribeClusterResponse"},
-      "errors":[
-        {"shape":"ResourceNotFoundException"},
-        {"shape":"ClientException"},
-        {"shape":"ServerException"},
-        {"shape":"ServiceUnavailableException"}
-      ],
-      "documentation":"<p>Returns descriptive information about an Amazon EKS cluster.</p> <p>The API server endpoint and certificate authority data returned by this operation are required for <code>kubelet</code> and <code>kubectl</code> to communicate with your Kubernetes API server. For more information, see <a href=\"https://docs.aws.amazon.com/eks/latest/userguide/create-kubeconfig.html\">Create a kubeconfig for Amazon EKS</a>.</p> <note> <p>The API server endpoint and certificate authority data aren't available until the cluster reaches the <code>ACTIVE</code> state.</p> </note>"
+      "documentation":"<p>Returns descriptive information about Kubernetes cluster.</p>"
     },
     "GetClusterKubeconfig":{
       "name":"GetClusterKubeconfig",
@@ -73,12 +51,7 @@
       },
       "input":{"shape":"GetClusterKubeconfigRequest"},
       "output":{"shape":"GetClusterKubeconfigResponse"},
-      "errors":[
-        {"shape":"ClusterNotReady"},
-        {"shape":"ClientException"},
-        {"shape":"ServerException"},
-        {"shape":"ServiceUnavailableException"}
-      ]
+      "documentation":"<p>Returns Kubernetes cluster configuration.</p>"
     },
     "ListClusters":{
       "name":"ListClusters",
@@ -88,13 +61,7 @@
       },
       "input":{"shape":"ListClustersRequest"},
       "output":{"shape":"ListClustersResponse"},
-      "errors":[
-        {"shape":"InvalidParameterException"},
-        {"shape":"ClientException"},
-        {"shape":"ServerException"},
-        {"shape":"ServiceUnavailableException"}
-      ],
-      "documentation":"<p>Lists the Amazon EKS clusters in your AWS account in the specified Region.</p>"
+      "documentation":"<p>Lists Kubernetes clusters.</p>"
     },
     "ResizeCluster":{
       "name":"ResizeCluster",
@@ -104,11 +71,7 @@
       },
       "input":{"shape":"ResizeClusterRequest"},
       "output":{"shape":"ResizeClusterResponse"},
-      "errors":[
-        {"shape":"ClientException"},
-        {"shape":"ServerException"},
-        {"shape":"ServiceUnavailableException"}
-      ]
+      "documentation":"<p>Resizes Kubernetes clusters.</p>"
     }
   },
   "shapes":{
