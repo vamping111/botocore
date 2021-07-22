@@ -367,7 +367,7 @@
         "IngressVolumeSize":{"shape":"String"},
         "IngressVolumeIops":{"shape":"String"},
         "SecurityGroups":{"shape":"String"},
-        "Instances":{"shape":"StringList"},
+        "Instances":{"shape":"InstanceList"},
         "SubnetIds":{"shape":"StringList"},
         "SshKeyName":{"shape":"String"},
         "Status":{"shape":"String"},
@@ -401,6 +401,36 @@
         "FAILED",
         "UPDATING"
       ]
+    },
+    "InstanceList":{
+      "type":"list",
+      "member":{"shape":"Instance"}
+    },
+    "Instance":{
+      "type":"structure",
+      "members":{
+        "InstanceId":{
+          "shape":"String"
+        },
+        "PrivateIp":{
+          "shape":"String"
+        },
+        "PublicIp":{
+          "shape":"String"
+        },
+        "InterfaceId":{
+          "shape":"String"
+        },
+        "Role":{
+          "shape":"String"
+        },
+        "SchedulingDisabled":{
+          "shape":"Boolean"
+        },
+        "Status":{
+          "shape":"String"
+        }
+      }
     },
     "Compatibilities":{
       "type":"list",
