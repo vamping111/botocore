@@ -72,6 +72,16 @@
       "input":{"shape":"ResizeClusterRequest"},
       "output":{"shape":"ResizeClusterResponse"},
       "documentation":"<p>Resizes Kubernetes clusters.</p>"
+    },
+    "ModifySecurityGroups":{
+      "name":"ModifySecurityGroups",
+      "http":{
+        "method":"POST",
+        "requestUri":"/clusters/{name}/modify_security_groups"
+      },
+      "input":{"shape":"ModifySecurityGroupsRequest"},
+      "output":{"shape":"ModifySecurityGroupsResponse"},
+      "documentation":"<p>Modify Kubernetes clusters.</p>"
     }
   },
   "shapes":{
@@ -356,8 +366,8 @@
         "IngressVolumeType":{"shape":"String"},
         "IngressVolumeSize":{"shape":"String"},
         "IngressVolumeIops":{"shape":"String"},
-        "SecurityGroups":{"shape":"String"},
-        "Instances":{"shape":"StringList"},
+        "SecurityGroupIds":{"shape":"StringList"},
+        "Instances":{"shape":"InstanceList"},
         "SubnetIds":{"shape":"StringList"},
         "SshKeyName":{"shape":"String"},
         "Status":{"shape":"String"},
@@ -391,6 +401,36 @@
         "FAILED",
         "UPDATING"
       ]
+    },
+    "InstanceList":{
+      "type":"list",
+      "member":{"shape":"Instance"}
+    },
+    "Instance":{
+      "type":"structure",
+      "members":{
+        "InstanceId":{
+          "shape":"String"
+        },
+        "PrivateIp":{
+          "shape":"String"
+        },
+        "PublicIp":{
+          "shape":"String"
+        },
+        "InterfaceId":{
+          "shape":"String"
+        },
+        "Role":{
+          "shape":"String"
+        },
+        "SchedulingDisabled":{
+          "shape":"Boolean"
+        },
+        "Status":{
+          "shape":"String"
+        }
+      }
     },
     "Compatibilities":{
       "type":"list",
@@ -490,7 +530,7 @@
         "masters_volume_iops":{"shape":"Integer"},
         "workers_volume_iops":{"shape":"Integer"},
         "master_public_ip_required":{"shape":"Boolean"},
-        "security_groups":{"shape":"StringList"},
+        "security_group_ids":{"shape":"StringList"},
         "ssh_key_name":{"shape":"String"},
         "docker_registry_required":{"shape":"Boolean"},
         "docker_registry_volume_type":{"shape":"String"},
@@ -1968,6 +2008,30 @@
           "locationName":"name"
         },
         "workers_quantity":{"shape":"Integer"}
+      }
+    },
+    "ModifySecurityGroupsRequest":{
+      "type":"structure",
+      "required":[
+        "name",
+        "security_group_ids"
+      ],
+      "members":{
+        "name":{
+          "shape":"String",
+          "location":"uri",
+          "locationName":"name"
+        },
+        "security_group_ids":{"shape":"StringList"}
+      }
+    },
+    "ModifySecurityGroupsResponse":{
+      "type":"structure",
+      "members":{
+        "cluster":{
+          "shape":"Cluster",
+          "documentation":"<p>The full description of your modified cluster.</p>"
+        }
       }
     },
     "ResizeClusterResponse":{
