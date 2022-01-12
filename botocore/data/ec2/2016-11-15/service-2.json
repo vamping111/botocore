@@ -23615,6 +23615,11 @@
           "shape":"TagSpecificationList",
           "documentation":"<p>The tags to apply to the import image task during creation.</p>",
           "locationName":"TagSpecification"
+        },
+        "VirtualizationType":{
+          "shape":"String",
+          "documentation":"<p>The type of virtualization (<code>hvm</code> | <code>hvm-legacy</code>).</p> <p>Default: <code>hvm</code> </p>",
+          "locationName":"virtualizationType"
         }
       }
     },
