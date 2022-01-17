@@ -9301,6 +9301,16 @@
           "shape":"TagSpecificationList",
           "documentation":"<p>The tags to apply to the export instance task during creation.</p>",
           "locationName":"TagSpecification"
+        },
+        "Notify":{
+          "shape":"Boolean",
+          "documentation":"<p>Notify about state of task by email.</p>",
+          "locationName":"notify"
+        },
+        "Email":{
+          "shape":"String",
+          "documentation":"<p>An email address for notification.</p>",
+          "locationName":"email"
         }
       }
     },
@@ -24041,6 +24051,16 @@
           "shape":"TagSpecificationList",
           "documentation":"<p>The tags to apply to the import snapshot task during creation.</p>",
           "locationName":"TagSpecification"
+        },
+        "Notify":{
+          "shape":"Boolean",
+          "documentation":"<p>Notify about state of task by email.</p>",
+          "locationName":"notify"
+        },
+        "Email":{
+          "shape":"String",
+          "documentation":"<p>An email address for notification.</p>",
+          "locationName":"email"
         }
       }
     },
