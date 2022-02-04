@@ -944,6 +944,16 @@
       "output":{"shape":"Volume"},
       "documentation":"<p>Creates an EBS volume that can be attached to an instance in the same Availability Zone.</p> <p>You can create a new empty volume or restore a volume from an EBS snapshot. Any AWS Marketplace product codes from the snapshot are propagated to the volume.</p> <p>You can create encrypted volumes. Encrypted volumes must be attached to instances that support Amazon EBS encryption. Volumes that are created from encrypted snapshots are also automatically encrypted. For more information, see <a href=\"https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/EBSEncryption.html\">Amazon EBS encryption</a> in the <i>Amazon Elastic Compute Cloud User Guide</i>.</p> <p>You can tag your volumes during creation. For more information, see <a href=\"https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/Using_Tags.html\">Tagging your Amazon EC2 resources</a> in the <i>Amazon Elastic Compute Cloud User Guide</i>.</p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ebs-creating-volume.html\">Creating an Amazon EBS volume</a> in the <i>Amazon Elastic Compute Cloud User Guide</i>.</p>"
     },
+    "CreateVolumeExportTask":{
+      "name":"CreateVolumeExportTask",
+      "http":{
+        "method":"POST",
+        "requestUri":"/"
+      },
+      "input":{"shape":"CreateVolumeExportTaskRequest"},
+      "output":{"shape":"CreateVolumeExportTaskResult"},
+      "documentation":"<p>Exports a running or stopped volume to an Amazon S3 bucket.</p>"
+    },
     "CreateVpc":{
       "name":"CreateVpc",
       "http":{
@@ -1820,6 +1830,16 @@
       },
       "input":{"shape":"DescribeExportTasksRequest"},
       "output":{"shape":"DescribeExportTasksResult"},
+      "documentation":"<p>Describes the specified export instance tasks or all of your export instance tasks.</p>"
+    },
+    "DescribeExportVolumeTasks":{
+      "name":"DescribeExportVolumeTasks",
+      "http":{
+        "method":"POST",
+        "requestUri":"/"
+      },
+      "input":{"shape":"DescribeExportVolumeTasksRequest"},
+      "output":{"shape":"DescribeExportVolumeTasksResult"},
       "documentation":"<p>Describes the specified export instance tasks or all of your export instance tasks.</p>"
     },
     "DescribeFastSnapshotRestores":{
@@ -9281,6 +9301,16 @@
           "shape":"TagSpecificationList",
           "documentation":"<p>The tags to apply to the export instance task during creation.</p>",
           "locationName":"TagSpecification"
+        },
+        "Notify":{
+          "shape":"Boolean",
+          "documentation":"<p>Notify about state of task by email.</p>",
+          "locationName":"notify"
+        },
+        "Email":{
+          "shape":"String",
+          "documentation":"<p>An email address for notification.</p>",
+          "locationName":"email"
         }
       }
     },
@@ -11008,6 +11038,50 @@
         "Throughput":{
           "shape":"Integer",
           "documentation":"<p>The throughput to provision for a volume, with a maximum of 1,000 MiB/s.</p> <p>This parameter is valid only for <code>gp3</code> volumes.</p> <p>Valid Range: Minimum value of 125. Maximum value of 1000.</p>"
+        }
+      }
+    },
+    "CreateVolumeExportTaskRequest":{
+      "type":"structure",
+      "required":[
+        "ExportToS3Task",
+        "VolumeId"
+      ],
+      "members":{
+        "Description":{
+          "shape":"String",
+          "documentation":"<p>A description for the conversion task or the resource being exported. The maximum length is 255 characters.</p>",
+          "locationName":"description"
+        },
+        "ExportToS3Task":{
+          "shape":"ExportToS3TaskSpecification",
+          "documentation":"<p>The format and location for an export instance task.</p>",
+          "locationName":"exportToS3"
+        },
+        "VolumeId":{
+          "shape":"VolumeId",
+          "documentation":"<p>The ID of the volume.</p>",
+          "locationName":"volumeId"
+        },
+        "Notify":{
+          "shape":"Boolean",
+          "documentation":"<p>Notify about state of task by email.</p>",
+          "locationName":"notify"
+        },
+        "Email":{
+          "shape":"String",
+          "documentation":"<p>An email address for notification.</p>",
+          "locationName":"email"
+        }
+      }
+    },
+    "CreateVolumeExportTaskResult":{
+      "type":"structure",
+      "members":{
+        "ExportTask":{
+          "shape":"ExportVolumeTask",
+          "documentation":"<p>Information about the export volume task.</p>",
+          "locationName":"exportTask"
         }
       }
     },
@@ -14009,6 +14083,26 @@
       "members":{
         "ExportTasks":{
           "shape":"ExportTaskList",
+          "documentation":"<p>Information about the export tasks.</p>",
+          "locationName":"exportTaskSet"
+        }
+      }
+    },
+    "DescribeExportVolumeTasksRequest":{
+      "type":"structure",
+      "members":{
+        "ExportTaskIds":{
+          "shape":"ExportTaskIdStringList",
+          "documentation":"<p>The export task IDs.</p>",
+          "locationName":"exportTaskId"
+        }
+      }
+    },
+    "DescribeExportVolumeTasksResult":{
+      "type":"structure",
+      "members":{
+        "ExportTasks":{
+          "shape":"ExportVolumeTaskList",
           "documentation":"<p>Information about the export tasks.</p>",
           "locationName":"exportTaskSet"
         }
@@ -20600,6 +20694,11 @@
           "documentation":"<p>Information about the instance to export.</p>",
           "locationName":"instanceExport"
         },
+        "Progress":{
+          "shape":"String",
+          "documentation":"<p>The percent complete of the export image task.</p>",
+          "locationName":"progress"
+        },
         "State":{
           "shape":"ExportTaskState",
           "documentation":"<p>The state of the export task.</p>",
@@ -20762,6 +20861,53 @@
       }
     },
     "ExportVmTaskId":{"type":"string"},
+    "ExportVolumeTask":{
+      "type":"structure",
+      "members":{
+        "Description":{
+          "shape":"String",
+          "documentation":"<p>A description of the resource being exported.</p>",
+          "locationName":"description"
+        },
+        "ExportTaskId":{
+          "shape":"String",
+          "documentation":"<p>The ID of the export task.</p>",
+          "locationName":"exportTaskId"
+        },
+        "ExportToS3Task":{
+          "shape":"ExportToS3Task",
+          "documentation":"<p>Information about the export task.</p>",
+          "locationName":"exportToS3"
+        },
+        "VolumeId":{
+          "shape":"VolumeId",
+          "documentation":"<p>The ID of the volume.</p>"
+        },
+        "Progress":{
+          "shape":"String",
+          "documentation":"<p>The progress of the task.</p>",
+          "locationName":"progress"
+        },
+        "State":{
+          "shape":"ExportTaskState",
+          "documentation":"<p>The state of the export task.</p>",
+          "locationName":"state"
+        },
+        "StatusMessage":{
+          "shape":"String",
+          "documentation":"<p>The status message related to the export task.</p>",
+          "locationName":"statusMessage"
+        }
+      },
+      "documentation":"<p>Describes an export volume task.</p>"
+    },
+    "ExportVolumeTaskList":{
+      "type":"list",
+      "member":{
+        "shape":"ExportVolumeTask",
+        "locationName":"item"
+      }
+    },
     "FailedQueuedPurchaseDeletion":{
       "type":"structure",
       "members":{
@@ -23910,6 +24056,16 @@
           "shape":"TagSpecificationList",
           "documentation":"<p>The tags to apply to the import snapshot task during creation.</p>",
           "locationName":"TagSpecification"
+        },
+        "Notify":{
+          "shape":"Boolean",
+          "documentation":"<p>Notify about state of task by email.</p>",
+          "locationName":"notify"
+        },
+        "Email":{
+          "shape":"String",
+          "documentation":"<p>An email address for notification.</p>",
+          "locationName":"email"
         }
       }
     },
