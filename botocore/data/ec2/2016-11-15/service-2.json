@@ -41078,7 +41078,7 @@
       "type":"string",
       "enum":[
         "hvm",
-        "paravirtual"
+        "hvm-legacy"
       ]
     },
     "VirtualizationTypeList":{
