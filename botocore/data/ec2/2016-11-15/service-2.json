@@ -28969,6 +28969,11 @@
           "documentation":"<p>[EC2-VPC] Changes the security groups of the instance. You must specify at least one security group, even if it's just the default security group for the VPC. You must specify the security group ID, not the security group name.</p>",
           "locationName":"GroupId"
         },
+        "HighAvailable":{
+          "shape":"AttributeBooleanValue",
+          "documentation":"<p>Changes the high availability mode.</p>",
+          "locationName":"highAvailable"
+        },
         "InstanceId":{
           "shape":"InstanceId",
           "documentation":"<p>The ID of the instance.</p>",
@@ -28989,10 +28994,20 @@
           "documentation":"<p>Changes the instance's kernel to the specified value. We recommend that you use PV-GRUB instead of kernels and RAM disks. For more information, see <a href=\"https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/UserProvidedKernels.html\">PV-GRUB</a>.</p>",
           "locationName":"kernel"
         },
+        "KeyName":{
+          "shape":"AttributeValue",
+          "documentation":"<p>Changes the key pair.</p>",
+          "locationName":"keyName"
+        },
         "Ramdisk":{
           "shape":"AttributeValue",
           "documentation":"<p>Changes the instance's RAM disk to the specified value. We recommend that you use PV-GRUB instead of kernels and RAM disks. For more information, see <a href=\"https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/UserProvidedKernels.html\">PV-GRUB</a>.</p>",
           "locationName":"ramdisk"
+        },
+        "RootDeviceName":{
+          "shape":"AttributeValue",
+          "documentation":"<p>Changes the root device volume.</p>",
+          "locationName":"rootDeviceName"
         },
         "SriovNetSupport":{
           "shape":"AttributeValue",
@@ -29003,6 +29018,11 @@
           "shape":"BlobAttributeValue",
           "documentation":"<p>Changes the instance's user data to the specified value. If you are using an AWS SDK or command line tool, base64-encoding is performed for you, and you can load the text from a file. Otherwise, you must provide base64-encoded text.</p>",
           "locationName":"userData"
+        },
+        "VirtualizationType":{
+          "shape":"AttributeValue",
+          "documentation":"<p>Changes the type of virtualization.</p>",
+          "locationName":"virtualizationType"
         },
         "Value":{
           "shape":"String",
