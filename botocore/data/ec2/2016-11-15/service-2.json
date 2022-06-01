@@ -24684,6 +24684,11 @@
           "documentation":"<p>Indicates whether the instance is optimized for Amazon EBS I/O.</p>",
           "locationName":"ebsOptimized"
         },
+        "HighAvailable":{
+          "shape":"AttributeBooleanValue",
+          "documentation":"<p>The high availability mode.</p>",
+          "locationName":"highAvailable"
+        },
         "InstanceId":{
           "shape":"String",
           "documentation":"<p>The ID of the instance.</p>",
@@ -24703,6 +24708,11 @@
           "shape":"AttributeValue",
           "documentation":"<p>The kernel ID.</p>",
           "locationName":"kernel"
+        },
+        "KeyName":{
+          "shape":"AttributeValue",
+          "documentation":"<p>The name of the key pair.</p>",
+          "locationName":"keyName"
         },
         "ProductCodes":{
           "shape":"ProductCodeList",
@@ -24733,6 +24743,11 @@
           "shape":"AttributeValue",
           "documentation":"<p>The user data.</p>",
           "locationName":"userData"
+        },
+        "VirtualizationType":{
+          "shape":"AttributeValue",
+          "documentation":"<p>The type of virtualization.</p>",
+          "locationName":"virtualizationType"
         }
       },
       "documentation":"<p>Describes an instance attribute.</p>"
