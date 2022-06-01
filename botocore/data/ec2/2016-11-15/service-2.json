@@ -24742,6 +24742,7 @@
       "enum":[
         "instanceType",
         "kernel",
+        "keyName",
         "ramdisk",
         "userData",
         "disableApiTermination",
@@ -24754,7 +24755,9 @@
         "ebsOptimized",
         "sriovNetSupport",
         "enaSupport",
-        "enclaveOptions"
+        "enclaveOptions",
+        "highAvailable",
+        "virtualizationType"
       ]
     },
     "InstanceBlockDeviceMapping":{
