@@ -4603,6 +4603,11 @@
           "shape":"AccountAttributeValueList",
           "documentation":"<p>The values for the account attribute.</p>",
           "locationName":"attributeValueSet"
+        },
+        "AttributeType": {
+          "shape": "String",
+          "documentation": "<p>The type for the account attribute.</p>",
+          "locationName": "attributeType"
         }
       },
       "documentation":"<p>Describes an account attribute.</p>"
@@ -13254,6 +13259,11 @@
           "shape":"AccountAttributeNameStringList",
           "documentation":"<p>The account attribute names.</p>",
           "locationName":"attributeName"
+        },
+        "AvailabilityZone":{
+          "shape":"String",
+          "documentation":"<p>The Availability Zone.</p>",
+          "locationName":"availabilityZone"
         },
         "DryRun":{
           "shape":"Boolean",
