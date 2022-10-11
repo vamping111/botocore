@@ -241,6 +241,15 @@
       "output":{"shape":"AttachClassicLinkVpcResult"},
       "documentation":"<p>Links an EC2-Classic instance to a ClassicLink-enabled VPC through one or more of the VPC's security groups. You cannot link an EC2-Classic instance to more than one VPC at a time. You can only link an instance that's in the <code>running</code> state. An instance is automatically unlinked from a VPC when it's stopped - you can link it to the VPC again when you restart it.</p> <p>After you've linked an instance, you cannot change the VPC security groups that are associated with it. To change the security groups, you must first unlink the instance, and then link it again.</p> <p>Linking your instance to a VPC is sometimes referred to as <i>attaching</i> your instance.</p>"
     },
+    "AttachExtNetwork":{
+      "name":"AttachExtNetwork",
+      "http":{
+        "method":"POST",
+        "requestUri":"/"
+      },
+      "input":{"shape":"AttachExtNetworkRequest"},
+      "documentation":"<p>The request to attach External Network to a Subnet or a Virtual Switch.</p>"
+    },
     "AttachInternetGateway":{
       "name":"AttachInternetGateway",
       "http":{
@@ -934,6 +943,16 @@
       "output":{"shape":"CreateTransitGatewayVpcAttachmentResult"},
       "documentation":"<p>Attaches the specified VPC to the specified transit gateway.</p> <p>If you attach a VPC with a CIDR range that overlaps the CIDR range of a VPC that is already attached, the new VPC CIDR range is not propagated to the default propagation route table.</p> <p>To send VPC traffic to an attached transit gateway, add a route to the VPC route table using <a>CreateRoute</a>.</p>"
     },
+    "CreateVirtualSwitch":{
+      "name":"CreateVirtualSwitch",
+      "http":{
+        "method":"POST",
+        "requestUri":"/"
+      },
+      "input":{"shape":"CreateVirtualSwitchRequest"},
+      "output":{"shape":"CreateVirtualSwitchResult"},
+      "documentation":"<p>Creates a virtual switch.</p>"
+    },
     "CreateVolume":{
       "name":"CreateVolume",
       "http":{
@@ -1478,6 +1497,15 @@
       "output":{"shape":"DeleteTransitGatewayVpcAttachmentResult"},
       "documentation":"<p>Deletes the specified VPC attachment.</p>"
     },
+    "DeleteVirtualSwitch":{
+      "name":"DeleteVirtualSwitch",
+      "http":{
+        "method":"POST",
+        "requestUri":"/"
+      },
+      "input":{"shape":"DeleteVirtualSwitchRequest"},
+      "documentation":"<p>Deletes the specified virtual switch. You must terminate all running instances in the virtual switch before you can delete the virtual switch.</p>"
+    },
     "DeleteVolume":{
       "name":"DeleteVolume",
       "http":{
@@ -1860,6 +1888,16 @@
       "input":{"shape":"DescribeExportVolumeTasksRequest"},
       "output":{"shape":"DescribeExportVolumeTasksResult"},
       "documentation":"<p>Describes the specified export instance tasks or all of your export instance tasks.</p>"
+    },
+    "DescribeExtNetworks":{
+      "name":"DescribeExtNetworks",
+      "http":{
+        "method":"POST",
+        "requestUri":"/"
+      },
+      "input":{"shape":"DescribeExtNetworksRequest"},
+      "output":{"shape":"DescribeExtNetworksResult"},
+      "documentation":"<p>Describes the External Networks.</p>"
     },
     "DescribeFastSnapshotRestores":{
       "name":"DescribeFastSnapshotRestores",
@@ -2661,6 +2699,16 @@
       "output":{"shape":"DescribeTransitGatewaysResult"},
       "documentation":"<p>Describes one or more transit gateways. By default, all transit gateways are described. Alternatively, you can filter the results.</p>"
     },
+    "DescribeVirtualSwitches":{
+      "name":"DescribeVirtualSwitches",
+      "http":{
+        "method":"POST",
+        "requestUri":"/"
+      },
+      "input":{"shape":"DescribeVirtualSwitchesRequest"},
+      "output":{"shape":"DescribeVirtualSwitchesResult"},
+      "documentation":"<p>Describes a virtual switches.</p>"
+    },
     "DescribeVolumeAttribute":{
       "name":"DescribeVolumeAttribute",
       "http":{
@@ -2850,6 +2898,15 @@
       "input":{"shape":"DetachClassicLinkVpcRequest"},
       "output":{"shape":"DetachClassicLinkVpcResult"},
       "documentation":"<p>Unlinks (detaches) a linked EC2-Classic instance from a VPC. After the instance has been unlinked, the VPC security groups are no longer associated with it. An instance is automatically unlinked from a VPC when it's stopped.</p>"
+    },
+    "DetachExtNetwork":{
+      "name":"DetachExtNetwork",
+      "http":{
+        "method":"POST",
+        "requestUri":"/"
+      },
+      "input":{"shape":"DetachExtNetworkRequest"},
+      "documentation":"<p>Detaches the External Network from the Subnet or the Virtual Switch.</p>"
     },
     "DetachInternetGateway":{
       "name":"DetachInternetGateway",
@@ -3628,6 +3685,16 @@
       "output":{"shape":"ModifyReservedInstancesResult"},
       "documentation":"<p>Modifies the Availability Zone, instance count, instance type, or network platform (EC2-Classic or EC2-VPC) of your Reserved Instances. The Reserved Instances to be modified must be identical, except for Availability Zone, network platform, and instance type.</p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ri-modifying.html\">Modifying Reserved Instances</a> in the <i>Amazon EC2 User Guide</i>.</p>"
     },
+    "ModifySecurityGroupAttribute":{
+      "name":"ModifySecurityGroupAttribute",
+      "http":{
+        "method":"POST",
+        "requestUri":"/"
+      },
+      "input":{"shape":"ModifySecurityGroupAttributeRequest"},
+      "output":{"shape":"ModifySecurityGroupAttributeResult"},
+      "documentation":"<p>Modifies the specified attribute of the specified security group.</p>"
+    },
     "ModifySnapshotAttribute":{
       "name":"ModifySnapshotAttribute",
       "http":{
@@ -4059,7 +4126,7 @@
       },
       "input":{"shape":"ReplacePrimaryNetworkInterfaceRequest"},
       "output":{"shape":"ReplacePrimaryNetworkInterfaceResult"},
-      "documentation": "<p>Replaces Instance's primary Elastic Network Interface with new one.</p>"
+      "documentation":"<p>Replaces Instance's primary Elastic Network Interface with new one.</p>"
     },
     "ReplaceRoute":{
       "name":"ReplaceRoute",
@@ -4604,10 +4671,10 @@
           "documentation":"<p>The values for the account attribute.</p>",
           "locationName":"attributeValueSet"
         },
-        "AttributeType": {
-          "shape": "String",
-          "documentation": "<p>The type for the account attribute.</p>",
-          "locationName": "attributeType"
+        "AttributeType":{
+          "shape":"String",
+          "documentation":"<p>The type for the account attribute.</p>",
+          "locationName":"attributeType"
         }
       },
       "documentation":"<p>Describes an account attribute.</p>"
@@ -5989,6 +6056,36 @@
           "shape":"Boolean",
           "documentation":"<p>Returns <code>true</code> if the request succeeds; otherwise, it returns an error.</p>",
           "locationName":"return"
+        }
+      }
+    },
+    "AttachExtNetworkRequest":{
+      "type":"structure",
+      "members":{
+        "ExtNetName":{
+          "shape":"ExtNetName",
+          "documentation":"<p>Name of the External Network.</p>",
+          "locationName":"ExtNetName"
+        },
+        "SubnetId":{
+          "shape":"String",
+          "documentation":"<p>The ID of the Subnet, to which you wish to attach the External Network.</p>",
+          "locationName":"SubnetId"
+        },
+        "SwitchId":{
+          "shape":"String",
+          "documentation":"<p>The ID of the Virtual Switch, to which you wish to attach the External Netwok.</p>",
+          "locationName":"SwitchId"
+        },
+        "SwitchName":{
+          "shape":"String",
+          "documentation":"<p>The name of the Virtual Switch, to which you wish to attach the External Network.</p>",
+          "locationName":"SwitchName"
+        },
+        "DryRun":{
+          "shape":"Boolean",
+          "documentation":"<p>Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is <code>DryRunOperation</code>. Otherwise, it is <code>UnauthorizedOperation</code>.</p>",
+          "locationName":"dryRun"
         }
       }
     },
@@ -9326,8 +9423,7 @@
       "type":"structure",
       "required":[
         "ExportToS3Task",
-        "InstanceId",
-        "TargetEnvironment"
+        "InstanceId"
       ],
       "members":{
         "Description":{
@@ -11001,6 +11097,51 @@
           "shape":"TransitGatewayVpcAttachment",
           "documentation":"<p>Information about the VPC attachment.</p>",
           "locationName":"transitGatewayVpcAttachment"
+        }
+      }
+    },
+    "CreateVirtualSwitchRequest":{
+      "type":"structure",
+      "required": [
+        "SwitchName"
+      ],
+      "members":{
+        "AvailabilityZone":{
+          "shape":"String",
+          "documentation":"<p>The Availability Zone or Local Zone for the subnet.</p> <p>Default: AWS selects one for you. If you create more than one subnet in your VPC, we do not necessarily select a different zone for each subnet.</p> <p>To create a subnet in a Local Zone, set this value to the Local Zone ID, for example <code>us-west-2-lax-1a</code>. For information about the Regions that support Local Zones, see <a href=\"https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-regions-availability-zones.html#concepts-available-regions\">Available Regions</a> in the <i>Amazon Elastic Compute Cloud User Guide</i>.</p> <p>To create a subnet in an Outpost, set this value to the Availability Zone for the Outpost and specify the Outpost ARN.</p>"
+        },
+        "SwitchName":{
+          "shape":"String",
+          "documentation":"<p>The name of the virtual switch.</p>"
+        },
+        "DryRun":{
+          "shape":"Boolean",
+          "documentation":"<p>Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is <code>DryRunOperation</code>. Otherwise, it is <code>UnauthorizedOperation</code>.</p>",
+          "locationName":"dryRun"
+        }
+      }
+    },
+    "CreateVirtualSwitchResult":{
+      "type":"structure",
+      "members":{
+        "VirtualSwitchId":{
+          "shape":"String",
+          "documentation":"<p>The ID of the virtual switch.</p>",
+          "locationName":"switchId"
+        },
+        "VirtualSwitchName":{
+          "shape":"String",
+          "documentation":"<p>The name of the virtual switch.</p>",
+          "locationName":"switchName"
+        },
+        "AvailabilityZone":{
+          "shape":"String",
+          "documentation":"<p>The Availability Zone.</p>",
+          "locationName":"availabilityZone"
+        },
+        "Return":{
+          "shape":"Boolean",
+          "locationName":"return"
         }
       }
     },
@@ -12907,6 +13048,24 @@
         }
       }
     },
+    "DeleteVirtualSwitchRequest":{
+      "type":"structure",
+      "members":{
+        "VirtualSwitchId":{
+          "shape":"VirtualSwitchId",
+          "documentation":"<p>The ID of the virtual switch.</p>"
+        },
+        "VirtualSwitchName":{
+          "shape":"VirtualSwitchName",
+          "documentation":"<p>The name of the virtual switch.</p>"
+        },
+        "DryRun":{
+          "shape":"Boolean",
+          "documentation":"<p>Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is <code>DryRunOperation</code>. Otherwise, it is <code>UnauthorizedOperation</code>.</p>",
+          "locationName":"dryRun"
+        }
+      }
+    },
     "DeleteVolumeRequest":{
       "type":"structure",
       "required":["VolumeId"],
@@ -13143,6 +13302,10 @@
         "ImageId":{
           "shape":"ImageId",
           "documentation":"<p>The ID of the AMI.</p>"
+        },
+        "DeleteSnapshots":{
+          "shape":"Boolean",
+          "documentation":"<p>Deletes the snapshots associated with the image.</p>"
         },
         "DryRun":{
           "shape":"Boolean",
@@ -14211,6 +14374,105 @@
           "locationName":"exportTaskSet"
         }
       }
+    },
+    "DescribeExtNetworksMaxResults":{
+      "type":"integer",
+      "max":1000,
+      "min":5
+    },
+    "DescribeExtNetworksRequest":{
+      "type":"structure",
+      "members":{
+        "Filters":{
+          "shape":"FilterList",
+          "documentation":"<p>One or more filters.</p>",
+          "locationName":"Filter"
+        },
+        "ExtNetName":{
+          "shape":"ExtNetNameStringList",
+          "documentation":"<p>One or more external network names.</p>",
+          "locationName":"ExtNetName"
+        },
+        "DryRun":{
+          "shape":"Boolean",
+          "documentation":"<p>Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is <code>DryRunOperation</code>. Otherwise, it is <code>UnauthorizedOperation</code>.</p>",
+          "locationName":"dryRun"
+        },
+        "NextToken":{
+          "shape":"String",
+          "documentation":"<p>The token for the next page of results.</p>"
+        },
+        "MaxResults":{
+          "shape":"DescribeExtNetworksMaxResults",
+          "documentation":"<p>The maximum number of results to return with a single call. To retrieve the remaining results, make another call with the returned <code>nextToken</code> value.</p>"
+        }
+      }
+    },
+    "DescribeExtNetworksResult":{
+      "type":"structure",
+      "members":{
+        "ExtNetworks":{
+          "shape":"ExtNetworkList",
+          "documentation":"<p>Information about one or more external networks.</p>",
+          "locationName":"extNetSet"
+        },
+        "NextToken":{
+          "shape":"String",
+          "documentation":"<p>The token to use to retrieve the next page of results. This value is <code>null</code> when there are no more results to return.</p>",
+          "locationName":"nextToken"
+        }
+      }
+    },
+    "ExtNetName":{"type":"string"},
+    "ExtNetNameStringList":{
+      "type":"list",
+      "member":{
+        "shape":"ExtNetName",
+        "locationName":"ExtNetName"
+      }
+    },
+    "ExtNetworkList":{
+      "type":"list",
+      "member":{
+        "shape":"ExtNetwork",
+        "locationName":"item"
+      }
+    },
+    "ExtNetwork":{
+      "type":"structure",
+      "members":{
+        "AvailabilityZone":{
+          "shape":"String",
+          "documentation":"<p>Availability Zone name, in which the External Network resides.</p>",
+          "locationName":"availabilityZone"
+        },
+        "ExtNetName":{
+          "shape":"String",
+          "documentation":"<p>Name of the External Network.</p>",
+          "locationName":"extNetName"
+        },
+        "State":{
+          "shape":"String",
+          "documentation":"<p>The current state of the External Network.</p>",
+          "locationName":"state"
+        },
+        "NetworkDescription":{
+          "shape":"String",
+          "documentation":"<p>Description of the attached network (Subnet CIDR or Virtual Switch name).</p>",
+          "locationName":"networkDescription"
+        },
+        "SwitchId":{
+          "shape":"String",
+          "documentation":"<p>The ID of the Virtual Switch, to which the External Network is attached.</p>",
+          "locationName":"switchId"
+        },
+        "SubnetId":{
+          "shape":"String",
+          "documentation":"<p>The ID of the Subnet, to which the External Network is attached.</p>",
+          "locationName":"subnetId"
+        }
+      },
+      "documentation":"<p>Describes a the external network.</p>"
     },
     "DescribeFastSnapshotRestoreSuccessItem":{
       "type":"structure",
@@ -17827,6 +18089,97 @@
         }
       }
     },
+    "DescribeVirtualSwitchesMaxResults":{
+      "type":"integer",
+      "max":1000,
+      "min":5
+    },
+    "DescribeVirtualSwitchesRequest":{
+      "type":"structure",
+      "members":{
+        "Filters":{
+          "shape":"FilterList",
+          "documentation":"<p>One or more filters.</p>",
+          "locationName":"Filter"
+        },
+        "SwitchIds":{
+          "shape":"VirtualSwitchIdStringList",
+          "documentation":"<p>One or more virtual witch IDs.</p> <p>Default: Describes all your virtual witches.</p>",
+          "locationName":"SwitchId"
+        },
+        "DryRun":{
+          "shape":"Boolean",
+          "documentation":"<p>Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is <code>DryRunOperation</code>. Otherwise, it is <code>UnauthorizedOperation</code>.</p>",
+          "locationName":"dryRun"
+        },
+        "NextToken":{
+          "shape":"String",
+          "documentation":"<p>The token for the next page of results.</p>"
+        },
+        "MaxResults":{
+          "shape":"DescribeVirtualSwitchesMaxResults",
+          "documentation":"<p>The maximum number of results to return with a single call. To retrieve the remaining results, make another call with the returned <code>nextToken</code> value.</p>"
+        }
+      }
+    },
+    "DescribeVirtualSwitchesResult":{
+      "type":"structure",
+      "members":{
+        "VirtualSwitches":{
+          "shape":"VirtualSwitchList",
+          "documentation":"<p>Information about one or more virtual switches.</p>",
+          "locationName":"virtualSwitchInfo"
+        },
+        "NextToken":{
+          "shape":"String",
+          "documentation":"<p>The token to use to retrieve the next page of results. This value is <code>null</code> when there are no more results to return.</p>",
+          "locationName":"nextToken"
+        }
+      }
+    },
+    "VirtualSwitchIdStringList":{
+      "type":"list",
+      "member":{
+        "shape":"VirtualSwitchId",
+        "locationName":"SwitchId"
+      }
+    },
+    "VirtualSwitchId":{
+      "type":"string",
+      "locationName":"SwitchId"
+    },
+    "VirtualSwitchName":{
+      "type":"string",
+      "locationName":"SwitchName"
+    },
+    "VirtualSwitchList":{
+      "type":"list",
+      "member":{
+        "shape":"VirtualSwitch",
+        "locationName":"item"
+      }
+    },
+    "VirtualSwitch":{
+      "type":"structure",
+      "members":{
+        "VirtualSwitchId":{
+          "shape":"String",
+          "documentation":"<p>The ID of the virtual switch.</p>",
+          "locationName":"switchId"
+        },
+        "VirtualSwitchName":{
+          "shape":"String",
+          "documentation":"<p>The name of the virtual switch.</p>",
+          "locationName":"switchName"
+        },
+        "AvailabilityZone":{
+          "shape":"String",
+          "documentation":"<p>The Availability Zone.</p>",
+          "locationName":"availabilityZone"
+        }
+      },
+      "documentation":"<p>Describes a virtual switch.</p>"
+    },
     "DescribeVolumeAttributeRequest":{
       "type":"structure",
       "required":[
@@ -18591,6 +18944,21 @@
           "shape":"Boolean",
           "documentation":"<p>Returns <code>true</code> if the request succeeds; otherwise, it returns an error.</p>",
           "locationName":"return"
+        }
+      }
+    },
+    "DetachExtNetworkRequest":{
+      "type":"structure",
+      "members":{
+        "ExtNetName":{
+          "shape":"ExtNetName",
+          "documentation":"<p>Name of the External Network.</p>",
+          "locationName":"ExtNetName"
+        },
+        "DryRun":{
+          "shape":"Boolean",
+          "documentation":"<p>Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is <code>DryRunOperation</code>. Otherwise, it is <code>UnauthorizedOperation</code>.</p>",
+          "locationName":"dryRun"
         }
       }
     },
@@ -23390,6 +23758,16 @@
           "documentation":"<p>Indicates whether the image has public launch permissions. The value is <code>true</code> if this image has public launch permissions or <code>false</code> if it has only implicit and explicit launch permissions.</p>",
           "locationName":"isPublic"
         },
+        "Shared":{
+          "shape":"Boolean",
+          "documentation":"<p>Indicates whether the mage has shared launch permissions. The value is <code>true</code> if this image has shared launch permissions, or <code>false</code> if it does not have shared launch permissions.<p>",
+          "locationName":"isShared"
+        },
+        "StateTime":{
+          "shape":"DateTime",
+          "documentation":"<p>State change time.</p>",
+          "locationName":"stateTime"
+        },
         "KernelId":{
           "shape":"String",
           "documentation":"<p>The kernel associated with the image, if any. Only applicable for machine images.</p>",
@@ -23759,12 +24137,12 @@
           "documentation":"<p>The type of virtualization (<code>hvm</code> | <code>hvm-legacy</code>).</p> <p>Default: <code>hvm</code> </p>",
           "locationName":"virtualizationType"
         },
-        "Notify": {
-          "shape": "Boolean",
-          "documentation": "<p>Notify of the task status via Email</p>"
+        "Notify":{
+          "shape":"Boolean",
+          "documentation":"<p>Notify of the task status via Email</p>"
         },
-        "Email": {
-          "shape": "String",
+        "Email":{
+          "shape":"String",
           "documentation":  "<p>Notification address</p>"
         }
       }
@@ -24237,6 +24615,16 @@
           "shape":"SnapshotTaskDetail",
           "documentation":"<p>Information about the import snapshot task.</p>",
           "locationName":"snapshotTaskDetail"
+        },
+        "Notify":{
+          "shape":"Boolean",
+          "documentation":"<p>Notify of the task status via Email.</p>",
+          "locationName":"notify"
+        },
+        "Email":{
+          "shape":"String",
+          "documentation":"<p>Notification address.</p>",
+          "locationName":"email"
         },
         "Tags":{
           "shape":"TagList",
@@ -26398,6 +26786,10 @@
           "documentation":"<p>[VPC only] The IPv6 ranges.</p>",
           "locationName":"ipv6Ranges"
         },
+        "Groups":{
+          "shape":"GroupList",
+          "locationName":"groups"
+        },
         "PrefixListIds":{
           "shape":"PrefixListIdList",
           "documentation":"<p>[VPC only] The prefix list IDs.</p>",
@@ -26570,6 +26962,38 @@
       "type":"list",
       "member":{
         "shape":"Ipv6Range",
+        "locationName":"item"
+      }
+    },
+    "Group":{
+      "type":"structure",
+      "members":{
+        "UserId":{
+          "shape":"String",
+          "documentation":"The ID of an account",
+          "locationName":"userId"
+        },
+        "GroupId":{
+          "shape":"String",
+          "documentation":"The ID of the security group",
+          "locationName":"groupId"
+        },
+        "GroupName":{
+          "shape":"String",
+          "documentation":"The name of the security group",
+          "locationName":"groupName"
+        },
+        "Description":{
+          "shape":"String",
+          "documentation":"<p>A description for the security group rule that references this IPv6 address range.</p> <p>Constraints: Up to 255 characters in length. Allowed characters are a-z, A-Z, 0-9, spaces, and ._-:/()#,@[]+=&amp;;{}!$*</p>",
+          "locationName":"description"
+        }
+      }
+    },
+    "GroupList":{
+      "type":"list",
+      "member":{
+        "shape":"Group",
         "locationName":"item"
       }
     },
@@ -29409,6 +29833,42 @@
       },
       "documentation":"<p>Contains the output of ModifyReservedInstances.</p>"
     },
+    "ModifySecurityGroupAttributeRequest":{
+      "type":"structure",
+      "required":["Description"],
+      "members":{
+        "GroupId":{
+          "shape":"String",
+          "documentation":"<p>The ID of the security group.</p>",
+          "locationName":"GroupId"
+        },
+        "GroupName":{
+          "shape":"String",
+          "documentation":"<p>The name of the security group.</p>",
+          "locationName":"GroupName"
+        },
+        "Description":{
+          "shape":"AttributeValue",
+          "documentation":"<p>The description of the security group.</p>"
+        },
+        "DryRun":{
+          "shape":"Boolean",
+          "documentation":"<p>Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is <code>DryRunOperation</code>. Otherwise, it is <code>UnauthorizedOperation</code>.</p>",
+          "locationName":"dryRun"
+        }
+      }
+    },
+    "ModifySecurityGroupAttributeResult":{
+      "type":"structure",
+      "members":{
+        "Return":{
+          "shape":"Boolean",
+          "documentation":"<p>Returns <code>true</code> if the request succeeds, otherwise returns an error.</p>",
+          "locationName":"return"
+        }
+      },
+      "documentation":"<p>Contains the output for ModifySecurityGroupAttribute.</p>"
+    },
     "ModifySnapshotAttributeRequest":{
       "type":"structure",
       "required":["SnapshotId"],
@@ -32005,6 +32465,11 @@
           "documentation":"<p>The ID of the placement group.</p>",
           "locationName":"groupId"
         },
+        "Instances":{
+          "shape":"Integer",
+          "documentation":"<p>The number of instances in PlacementGroup.</p>",
+          "locationName":"instances"
+        },
         "Tags":{
           "shape":"TagList",
           "documentation":"<p>Any tags applied to the placement group.</p>",
@@ -33589,7 +34054,7 @@
         "NetworkInterfaceId":{
           "shape":"String",
           "documentation":"<p>New Elastic Network Interface ID.</p>",
-          "locationName": "networkInterfaceId"
+          "locationName":"networkInterfaceId"
         }
       }
     },
@@ -33864,14 +34329,14 @@
           "documentation":"<p>Indicates whether the instance is optimized for Amazon EBS I/O. This optimization provides dedicated throughput to Amazon EBS and an optimized configuration stack to provide optimal Amazon EBS I/O performance. This optimization isn't available with all instance types. Additional usage charges apply when using an EBS-optimized instance.</p>"
         },
         "HighAvailable":{
-          "shape": "Boolean",
+          "shape":"Boolean",
           "documentation":"<p>High availability mode.</p>",
           "locationName":"highAvailable"
         },
         "VirtualizationType":{
-          "shape": "VirtualizationType",
-          "documentation": "<p>The virtualization type of the instance.</p>",
-          "locationName": "virtualizationType"
+          "shape":"VirtualizationType",
+          "documentation":"<p>The virtualization type of the instance.</p>",
+          "locationName":"virtualizationType"
         },
         "IamInstanceProfile":{
           "shape":"LaunchTemplateIamInstanceProfileSpecificationRequest",
@@ -35020,14 +35485,14 @@
           "locationName":"ebsOptimized"
         },
         "HighAvailable":{
-          "shape": "Boolean",
+          "shape":"Boolean",
           "documentation":"<p>High availability mode.</p>",
           "locationName":"highAvailable"
         },
         "VirtualizationType":{
-          "shape": "VirtualizationType",
-          "documentation": "<p>The virtualization type of the instance.</p>",
-          "locationName": "virtualizationType"
+          "shape":"VirtualizationType",
+          "documentation":"<p>The virtualization type of the instance.</p>",
+          "locationName":"virtualizationType"
         },
         "IamInstanceProfile":{
           "shape":"LaunchTemplateIamInstanceProfileSpecification",
@@ -36966,6 +37431,16 @@
           "shape":"String",
           "documentation":"<p>The progress of the snapshot, as a percentage.</p>",
           "locationName":"progress"
+        },
+        "Public":{
+          "shape":"Boolean",
+          "documentation":"<p>Indicates whether the snapshot of the volume is public.</p>",
+          "locationName":"isPublic"
+        },
+        "Shared":{
+          "shape":"Boolean",
+          "documentation":"<p>Indicates whether the snapshot of the volume is shared.<p>",
+          "locationName":"isShared"
         },
         "SnapshotId":{
           "shape":"String",
@@ -41852,6 +42327,10 @@
           "shape":"Boolean",
           "documentation":"<p>Indicates whether the VPC is the default VPC.</p>",
           "locationName":"isDefault"
+        },
+        "RoutePropagation":{
+          "shape":"String",
+          "locationName":"routePropagation"
         },
         "Tags":{
           "shape":"TagList",
