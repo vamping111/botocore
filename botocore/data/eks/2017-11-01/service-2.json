@@ -410,7 +410,9 @@
         "TotalMemory":{"shape":"String"},
         "EbsUser":{"shape":"String"},
         "PodSubnetCidr":{"shape":"String"},
-        "ServiceSubnetCidr":{"shape":"String"}
+        "ServiceSubnetCidr":{"shape":"String"},
+        "AutoUpdateCertificates":{"shape":"Boolean"},
+        "SupportedFeatures":{"shape":"StringList"}
       }
     },
     "ClusterName":{
@@ -555,7 +557,8 @@
         "workers_volume_type",
         "masters_volume_size",
         "workers_volume_size",
-        "subnet_ids"
+        "subnet_ids",
+        "auto_update_certificates"
       ],
       "members":{
         "name":{"shape":"String"},
@@ -590,7 +593,8 @@
         "user_data":{"shape":"String"},
         "user_data_content_type":{"shape":"String"},
         "pod_subnet_cidr":{"shape":"String"},
-        "service_subnet_cidr":{"shape":"String"}
+        "service_subnet_cidr":{"shape":"String"},
+        "auto_update_certificates":{"shape":"Boolean"}
       }
     },
     "CreateClusterResponse":{
