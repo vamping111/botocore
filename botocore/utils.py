@@ -14,16 +14,15 @@ import base64
 import re
 import time
 import logging
-import datetime
 import hashlib
 import binascii
+import datetime
+import email.message
 import functools
 import weakref
 import random
 import os
 import socket
-import cgi
-import warnings
 
 import dateutil.parser
 from dateutil.tz import tzutc
@@ -335,7 +334,7 @@ class IMDSFetcher(object):
 
     def get_base_url(self):
         return self._base_url
-    
+
     def _select_base_url(self, base_url, config):
         if config is None:
             config = {}
@@ -345,7 +344,7 @@ class IMDSFetcher(object):
 
         if requires_ipv6 and custom_metadata_endpoint:
             logger.warn("Custom endpoint and IMDS_USE_IPV6 are both set. Using custom endpoint.")
-        
+
         chosen_base_url = None
 
         if base_url != METADATA_BASE_URL:
@@ -2185,10 +2184,12 @@ def get_encoding_from_headers(headers, default='ISO-8859-1'):
     if not content_type:
         return None
 
-    content_type, params = cgi.parse_header(content_type)
+    message = email.message.Message()
+    message['content-type'] = content_type
+    charset = message.get_param("charset")
 
-    if 'charset' in params:
-        return params['charset'].strip("'\"")
+    if charset is not None:
+        return charset
 
     if 'text' in content_type:
         return default
