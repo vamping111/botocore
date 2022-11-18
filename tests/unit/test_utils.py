@@ -12,72 +12,82 @@
 # language governing permissions and limitations under the License.
 import io
 
-from tests import unittest
-from tests import RawResponse
+import pytest
 from dateutil.tz import tzutc, tzoffset
 import datetime
 import copy
-import mock
 
 import botocore
 from botocore import xform_name
 from botocore.compat import OrderedDict, json
 from botocore.compat import six
-from botocore.awsrequest import AWSRequest
-from botocore.awsrequest import AWSResponse
-from botocore.exceptions import InvalidExpressionError, ConfigNotFound
-from botocore.exceptions import ClientError, ConnectionClosedError
-from botocore.exceptions import InvalidDNSNameError, MetadataRetrievalError
-from botocore.exceptions import InvalidIMDSEndpointError
-from botocore.exceptions import ReadTimeoutError
-from botocore.exceptions import ConnectTimeoutError
-from botocore.exceptions import UnsupportedS3ArnError
-from botocore.exceptions import UnsupportedS3AccesspointConfigurationError
-from botocore.exceptions import UnsupportedOutpostResourceError
-from botocore.model import ServiceModel
-from botocore.model import OperationModel
-from botocore.regions import EndpointResolver
-from botocore.utils import ensure_boolean
-from botocore.utils import is_json_value_header
-from botocore.utils import remove_dot_segments
-from botocore.utils import normalize_url_path
-from botocore.utils import validate_jmespath_for_set
-from botocore.utils import set_value_from_jmespath
-from botocore.utils import parse_key_val_file_contents
-from botocore.utils import parse_key_val_file
-from botocore.utils import parse_timestamp
-from botocore.utils import parse_to_aware_datetime
-from botocore.utils import datetime2timestamp
-from botocore.utils import CachedProperty
-from botocore.utils import ArgumentGenerator
-from botocore.utils import calculate_tree_hash
-from botocore.utils import calculate_sha256
-from botocore.utils import is_valid_endpoint_url
-from botocore.utils import fix_s3_host
-from botocore.utils import switch_to_virtual_host_style
-from botocore.utils import instance_cache
-from botocore.utils import merge_dicts
-from botocore.utils import lowercase_dict
-from botocore.utils import get_service_module_name
-from botocore.utils import percent_encode_sequence
-from botocore.utils import percent_encode
-from botocore.utils import switch_host_s3_accelerate
-from botocore.utils import deep_merge
+from botocore.awsrequest import AWSRequest, HeadersDict
+
 from botocore.utils import S3RegionRedirector
-from botocore.utils import InvalidArnException
-from botocore.utils import ArnParser
-from botocore.utils import S3ArnParamHandler
-from botocore.utils import S3EndpointSetter
-from botocore.utils import ContainerMetadataFetcher
-from botocore.utils import InstanceMetadataFetcher
-from botocore.utils import SSOTokenLoader
-from botocore.utils import is_valid_uri, is_valid_ipv6_endpoint_url
-from botocore.exceptions import SSOTokenLoadError
-from botocore.utils import IMDSFetcher
-from botocore.utils import BadIMDSRequestError
-from botocore.model import DenormalizedStructureBuilder
-from botocore.model import ShapeResolver
 from botocore.config import Config
+from botocore.exceptions import (
+    ClientError,
+    ConfigNotFound,
+    ConnectionClosedError,
+    ConnectTimeoutError,
+    InvalidDNSNameError,
+    InvalidExpressionError,
+    InvalidIMDSEndpointError,
+    MetadataRetrievalError,
+    ReadTimeoutError,
+    SSOTokenLoadError,
+    UnsupportedOutpostResourceError,
+    UnsupportedS3AccesspointConfigurationError,
+    UnsupportedS3ArnError,
+)
+from botocore.model import (
+    DenormalizedStructureBuilder,
+    OperationModel,
+    ServiceModel,
+    ShapeResolver,
+)
+from botocore.utils import (
+    ArgumentGenerator,
+    ArnParser,
+    CachedProperty,
+    ContainerMetadataFetcher,
+    InstanceMetadataFetcher,
+    InvalidArnException,
+    S3ArnParamHandler,
+    S3EndpointSetter,
+    SSOTokenLoader,
+    calculate_sha256,
+    calculate_tree_hash,
+    datetime2timestamp,
+    deep_merge,
+    ensure_boolean,
+    fix_s3_host,
+    get_encoding_from_headers,
+    get_service_module_name,
+    instance_cache,
+    is_json_value_header,
+    is_valid_endpoint_url,
+    is_valid_ipv6_endpoint_url,
+    is_valid_uri,
+    lowercase_dict,
+    merge_dicts,
+    normalize_url_path,
+    parse_key_val_file,
+    parse_key_val_file_contents,
+    parse_timestamp,
+    parse_to_aware_datetime,
+    percent_encode,
+    percent_encode_sequence,
+    remove_dot_segments,
+    set_value_from_jmespath,
+    switch_host_s3_accelerate,
+    switch_to_virtual_host_style,
+    validate_jmespath_for_set,
+)
+from tests import RawResponse, mock, unittest
+
+DATE = datetime.datetime(2021, 12, 10, 00, 00, 00)
+DT_FORMAT = "%Y-%m-%dT%H:%M:%SZ"
 
 
 class TestEnsureBoolean(unittest.TestCase):
@@ -2359,8 +2369,8 @@ class TestInstanceMetadataFetcher(unittest.TestCase):
 
     def test_imds_use_ipv6(self):
         configs = [({'imds_use_ipv6': 'true'},'http://[fe80:ec2::254%eth0]/'),
-                ({'imds_use_ipv6': 'tRuE'}, 'http://[fe80:ec2::254%eth0]/'), 
-                ({'imds_use_ipv6': 'false'}, 'http://169.254.169.254/'), 
+                ({'imds_use_ipv6': 'tRuE'}, 'http://[fe80:ec2::254%eth0]/'),
+                ({'imds_use_ipv6': 'false'}, 'http://169.254.169.254/'),
                 ({'imds_use_ipv6': 'foo'}, 'http://169.254.169.254/'),
                 ({'imds_use_ipv6': 'true',
                 'ec2_metadata_service_endpoint': 'http://[fe80:ec2::010%eth0]/'},
@@ -2374,7 +2384,7 @@ class TestInstanceMetadataFetcher(unittest.TestCase):
                 'http://[fe80:ec2::010%eth0]/', 'http://192.168.1.1/']
         for url in urls:
             self.assertTrue(is_valid_uri(url))
-        
+
     def test_ipv6_endpoint_no_brackets_env_var_set(self):
         url = 'http://fe80:ec2::010/'
         config = {'ec2_metadata_service_endpoint': url}
@@ -2644,3 +2654,18 @@ class TestSSOTokenLoader(unittest.TestCase):
         self.cache[self.cache_key] = {}
         with self.assertRaises(SSOTokenLoadError):
             access_token = self.loader(self.start_url)
+
+
+@pytest.mark.parametrize(
+    'headers, default, expected',
+    (
+        ({}, 'ISO-8859-1', None),
+        ({'Content-Type': 'text/html; charset=utf-8'}, 'default', 'utf-8'),
+        ({'Content-Type': 'text/html; charset="utf-8"'}, 'default', 'utf-8'),
+        ({'Content-Type': 'text/html'}, 'ascii', 'ascii'),
+        ({'Content-Type': 'application/json'}, 'ISO-8859-1', None),
+    ),
+)
+def test_get_encoding_from_headers(headers, default, expected):
+    charset = get_encoding_from_headers(HeadersDict(headers), default=default)
+    assert charset == expected
