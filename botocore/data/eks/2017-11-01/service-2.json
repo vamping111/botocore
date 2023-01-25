@@ -33,6 +33,16 @@
       "output":{"shape":"DeleteClusterResponse"},
       "documentation":"<p>Deletes Kubernetes cluster.</p>"
     },
+    "DeleteWorker":{
+      "name":"DeleteWorker",
+      "http":{
+        "method":"DELETE",
+        "requestUri":"/clusters/{name}/delete_worker"
+      },
+      "input":{"shape":"DeleteWorkerRequest"},
+      "output":{"shape":"DeleteWorkerResponse"},
+      "documentation":"<p>Delete Kubernetes worker.</p>"
+    },
     "DescribeCluster":{
       "name":"DescribeCluster",
       "http":{
@@ -464,6 +474,12 @@
         },
         "Ghost": {
           "shape": "Boolean"
+        },
+        "Name": {
+          "shape":"String"
+        },
+        "PendingForTermination": {
+          "shape": "Boolean"
         }
       }
     },
@@ -788,6 +804,31 @@
         "cluster":{
           "shape":"Cluster",
           "documentation":"<p>The full description of the cluster to delete.</p>"
+        }
+      }
+    },
+    "DeleteWorkerRequest":{
+      "type":"structure",
+      "required":["name", "instance_id"],
+      "members":{
+        "name":{
+          "shape":"String",
+          "documentation":"<p>The name of the cluster.</p>",
+          "location":"uri",
+          "locationName":"name"
+        },
+        "instance_id":{
+          "shape":"String",
+          "documentation":"<p>The id of the instance to delete.</p>"
+        }
+      }
+    },
+    "DeleteWorkerResponse":{
+      "type":"structure",
+      "members":{
+        "instance":{
+          "shape":"Instance",
+          "documentation":"<p>The full description of the deleted worker node.</p>"
         }
       }
     },
