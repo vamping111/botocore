@@ -73,6 +73,16 @@
       "output":{"shape":"ResizeClusterResponse"},
       "documentation":"<p>Resizes Kubernetes clusters.</p>"
     },
+    "ModifyCertAutoUpdate":{
+      "name":"ModifyCertAutoUpdate",
+      "http":{
+        "method":"POST",
+        "requestUri":"/clusters/{name}/modify_auto_update_certificates"
+      },
+      "input":{"shape":"ModifyCertAutoUpdateRequest"},
+      "output":{"shape":"ModifyCertAutoUpdateResponse"},
+      "documentation":"<p>Toggle certificate autoupdate.</p>"
+    },
     "ModifySecurityGroups":{
       "name":"ModifySecurityGroups",
       "http":{
@@ -2056,6 +2066,24 @@
           "locationName":"name"
         },
         "workers_quantity":{"shape":"Integer"}
+      }
+    },
+    "ModifyCertAutoUpdateRequest":{
+      "type":"structure",
+      "members":{
+        "name": {
+          "shape":"String",
+          "documentation":"<p>The name of the cluster.</p>",
+          "location":"uri",
+          "locationName":"name"
+        },
+        "auto_update_certificates":{"shape":"Boolean"}
+      }
+    },
+    "ModifyCertAutoUpdateResponse":{
+      "type":"structure",
+      "members":{
+        "auto_update_certificates":{"shape":"Boolean"}
       }
     },
     "ModifySecurityGroupsRequest":{
