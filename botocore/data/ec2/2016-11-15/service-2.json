@@ -1999,6 +1999,16 @@
       "output":{"shape":"DescribeHostsResult"},
       "documentation":"<p>Describes the specified Dedicated Hosts or all your Dedicated Hosts.</p> <p>The results describe only the Dedicated Hosts in the Region you're currently using. All listed instances consume capacity on your Dedicated Host. Dedicated Hosts that have recently been released are listed with the state <code>released</code>.</p>"
     },
+    "DescribeHostTypes":{
+      "name":"DescribeHostTypes",
+      "http":{
+        "method":"POST",
+        "requestUri":"/"
+      },
+      "input": {"shape":"DescribeHostTypesRequest"},
+      "output":{"shape":"DescribeHostTypesResult"},
+      "documentation":"<p>Describes available host types.</p>"
+    },
     "DescribeIamInstanceProfileAssociations":{
       "name":"DescribeIamInstanceProfileAssociations",
       "http":{
@@ -15068,6 +15078,46 @@
         }
       }
     },
+    "DescribeHostTypesRequest":{
+      "type":"structure",
+      "members":{
+        "Filter":{
+          "shape":"FilterList",
+          "documentation":"<p>The filters.</p> <ul> <li> <p> <code>auto-placement</code> - Whether auto-placement is enabled or disabled (<code>on</code> | <code>off</code>).</p> </li> <li> <p> <code>availability-zone</code> - The Availability Zone of the host.</p> </li> <li> <p> <code>client-token</code> - The idempotency token that you provided when you allocated the host.</p> </li> <li> <p> <code>host-reservation-id</code> - The ID of the reservation assigned to this host.</p> </li> <li> <p> <code>instance-type</code> - The instance type size that the Dedicated Host is configured to support.</p> </li> <li> <p> <code>state</code> - The allocation state of the Dedicated Host (<code>available</code> | <code>under-assessment</code> | <code>permanent-failure</code> | <code>released</code> | <code>released-permanent-failure</code>).</p> </li> <li> <p> <code>tag-key</code> - The key of a tag assigned to the resource. Use this filter to find all resources assigned a tag with a specific key, regardless of the tag value.</p> </li> </ul>",
+          "locationName":"filter"
+        },
+        "HostTypeIds":{
+          "shape":"RequestHostTypeIdList",
+          "documentation":"<p>The IDs of the Dedicated Hosts Types.</p>",
+          "locationName":"hostTypeId"
+        },
+        "MaxResults":{
+          "shape":"Integer",
+          "documentation":"<p>The maximum number of results to return for the request in a single page. The remaining results can be seen by sending another request with the returned <code>nextToken</code> value. This value can be between 5 and 500. If <code>maxResults</code> is given a larger value than 500, you receive an error.</p> <p>You cannot specify this parameter and the host IDs parameter in the same request.</p>",
+          "locationName":"maxResults"
+        },
+        "NextToken":{
+          "shape":"String",
+          "documentation":"<p>The token to use to retrieve the next page of results.</p>",
+          "locationName":"nextToken"
+        }
+      }
+    },
+    "DescribeHostTypesResult":{
+      "type":"structure",
+      "members":{
+        "HostTypes":{
+          "shape":"HostTypeList",
+          "documentation":"<p>Information about the Dedicated Hosts types.</p>",
+          "locationName":"hostTypeSet"
+        },
+        "NextToken":{
+          "shape":"String",
+          "documentation":"<p>The token to use to retrieve the next page of results. This value is <code>null</code> when there are no more results to return.</p>",
+          "locationName":"nextToken"
+        }
+      }
+    },
     "DescribeIamInstanceProfileAssociationsMaxResults":{
       "type":"integer",
       "max":1000,
@@ -23258,6 +23308,41 @@
         "locationName":"item"
       }
     },
+    "HostType":{
+      "type":"structure",
+      "members":{
+        "Id":{
+          "shape":"String",
+          "documentation":"<p>Host type ID.</p>",
+          "locationName": "id"
+        },
+        "CpuGeneration":{
+          "shape":"String",
+          "documentation":"<p>Host type CPU generation name.</p>",
+          "locationName":"cpuGeneration"
+        },
+        "Sockets":{
+          "shape":"Integer",
+          "documentation":"<p>Number of sockets on Host type.</p>",
+          "locationName":"sockets"
+        },
+        "PhysicalCores":{
+          "shape":"Integer",
+          "documentation":"<p>Number of physical cores on Host type.</p>",
+          "locationName":"physicalCores"
+        },
+        "CCUs":{
+          "shape":"String",
+          "documentation":"<p>Amount of available CCUS on Host type.</p>",
+          "locationName":"ccus"
+        },
+        "Memory":{
+          "shape":"Integer",
+          "documentation":"<p>Amount of total memory on Host type.</p>",
+          "locationName":"memory"
+        }
+      }
+    },
     "Host":{
       "type":"structure",
       "members":{
@@ -23381,6 +23466,13 @@
       "type":"list",
       "member":{
         "shape":"Host",
+        "locationName":"item"
+      }
+    },
+    "HostTypeList":{
+      "type":"list",
+      "member":{
+        "shape":"HostType",
         "locationName":"item"
       }
     },
@@ -34339,6 +34431,13 @@
       "type":"list",
       "member":{
         "shape":"DedicatedHostId",
+        "locationName":"item"
+      }
+    },
+    "RequestHostTypeIdList":{
+      "type":"list",
+      "member":{
+        "shape":"String",
         "locationName":"item"
       }
     },
