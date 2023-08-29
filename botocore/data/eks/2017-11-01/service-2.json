@@ -269,6 +269,10 @@
     "Cluster":{
       "type":"structure",
       "members":{
+        "arn":{
+          "shape":"String",
+          "documentation":"<p>The id of the cluster.</p>"
+        },
         "name":{
           "shape":"String",
           "documentation":"<p>The name of the cluster.</p>"
@@ -1273,9 +1277,17 @@
     "Nodegroup":{
       "type":"structure",
       "members":{
+        "diskSize":{
+          "shape":"BoxedInteger",
+          "documentation":"<p>The root device disk size (in GiB) for your node group instances. The default disk size is 20 GiB for Linux. If you specify <code>launchTemplate</code>, then don't specify <code>diskSize</code>, or the node group deployment will fail.</p>"
+        },
         "nodegroupName":{
           "shape":"String",
           "documentation":"<p>The name associated with an Amazon EKS managed node group.</p>"
+        },
+        "nodegroupArn":{
+          "shape":"String",
+          "documentation":"<p>The id associated with an Amazon EKS managed node group.</p>"
         },
         "clusterName":{
           "shape":"String",
