@@ -714,8 +714,7 @@
       "input":{"shape":"PutNotificationConfigurationType"},
       "errors":[
         {"shape":"LimitExceededFault"},
-        {"shape":"ResourceContentionFault"},
-        {"shape":"ServiceLinkedRoleFailure"}
+        {"shape":"ResourceContentionFault"}
       ],
       "documentation":"<p>Configures an Auto Scaling group to send notifications when specified events take place. Subscribers to the specified topic can have messages delivered to an endpoint such as a web server or an email address.</p> <p>This configuration overwrites any existing configuration.</p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/autoscaling/ec2/userguide/ASGettingNotifications.html\">Getting Amazon SNS notifications when your Auto Scaling group scales</a> in the <i>Amazon EC2 Auto Scaling User Guide</i>.</p> <p>If you exceed your maximum limit of SNS topics, which is 10 per Auto Scaling group, the call fails.</p>"
     },
@@ -1346,6 +1345,11 @@
       "type":"list",
       "member":{"shape":"XmlStringMaxLen255"}
     },
+    "AutoScalingNotificationTargets":{
+      "type":"list",
+      "member":{"shape":"XmlStringMaxLen255"},
+      "min": 1
+    },
     "AvailabilityZones":{
       "type":"list",
       "member":{"shape":"XmlStringMaxLen255"}
@@ -1770,17 +1774,17 @@
     "DeleteNotificationConfigurationType":{
       "type":"structure",
       "required":[
-        "AutoScalingGroupName",
-        "TopicARN"
+        "NotificationConfigurationName",
+        "AutoScalingGroupName"
       ],
       "members":{
+        "NotificationConfigurationName":{
+          "shape":"XmlStringMaxLen255",
+          "documentation":"<p>The name of Notification Configuration.</p>"
+        },
         "AutoScalingGroupName":{
           "shape":"XmlStringMaxLen255",
           "documentation":"<p>The name of the Auto Scaling group.</p>"
-        },
-        "TopicARN":{
-          "shape":"XmlStringMaxLen255",
-          "documentation":"<p>The Amazon Resource Name (ARN) of the Amazon Simple Notification Service (Amazon SNS) topic.</p>"
         }
       }
     },
@@ -3166,17 +3170,21 @@
     "NotificationConfiguration":{
       "type":"structure",
       "members":{
+        "NotificationConfigurationName":{
+          "shape":"XmlStringMaxLen255",
+          "documentation":"<p>The name of Notification Configuration.</p>"
+        },
         "AutoScalingGroupName":{
           "shape":"XmlStringMaxLen255",
           "documentation":"<p>The name of the Auto Scaling group.</p>"
         },
-        "TopicARN":{
-          "shape":"XmlStringMaxLen255",
-          "documentation":"<p>The Amazon Resource Name (ARN) of the Amazon Simple Notification Service (Amazon SNS) topic.</p>"
-        },
-        "NotificationType":{
-          "shape":"XmlStringMaxLen255",
+        "NotificationTypes":{
+          "shape":"AutoScalingNotificationTypes",
           "documentation":"<p>One of the following event notification types:</p> <ul> <li> <p> <code>autoscaling:EC2_INSTANCE_LAUNCH</code> </p> </li> <li> <p> <code>autoscaling:EC2_INSTANCE_LAUNCH_ERROR</code> </p> </li> <li> <p> <code>autoscaling:EC2_INSTANCE_TERMINATE</code> </p> </li> <li> <p> <code>autoscaling:EC2_INSTANCE_TERMINATE_ERROR</code> </p> </li> <li> <p> <code>autoscaling:TEST_NOTIFICATION</code> </p> </li> </ul>"
+        },
+        "NotificationTargets":{
+          "shape":"AutoScalingNotificationTargets",
+          "documentation":"<p>List of email addresses to which notifications will be sent.</p>"
         }
       },
       "documentation":"<p>Describes a notification.</p>"
@@ -3330,22 +3338,27 @@
     "PutNotificationConfigurationType":{
       "type":"structure",
       "required":[
+        "NotificationConfigurationName",
         "AutoScalingGroupName",
-        "TopicARN",
-        "NotificationTypes"
+        "NotificationTypes",
+        "NotificationTargets"
       ],
       "members":{
+        "NotificationConfigurationName":{
+          "shape":"XmlStringMaxLen255",
+          "documentation":"<p>The name of Notification Configuration.</p>"
+        },
         "AutoScalingGroupName":{
           "shape":"XmlStringMaxLen255",
           "documentation":"<p>The name of the Auto Scaling group.</p>"
         },
-        "TopicARN":{
-          "shape":"XmlStringMaxLen255",
-          "documentation":"<p>The Amazon Resource Name (ARN) of the Amazon Simple Notification Service (Amazon SNS) topic.</p>"
-        },
         "NotificationTypes":{
           "shape":"AutoScalingNotificationTypes",
           "documentation":"<p>The type of event that causes the notification to be sent. To query the notification types supported by Amazon EC2 Auto Scaling, call the <a>DescribeAutoScalingNotificationTypes</a> API.</p>"
+        },
+        "NotificationTargets":{
+          "shape":"AutoScalingNotificationTargets",
+          "documentation":"<p>List of email addresses to which notifications will be sent.</p>"
         }
       }
     },
