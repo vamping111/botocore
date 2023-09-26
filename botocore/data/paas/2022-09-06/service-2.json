@@ -11,6 +11,16 @@
     "uid": "paas-2022-09-06"
   },
   "operations": {
+    "CreateDatabase": {
+      "name": "CreateDatabase",
+      "http": {
+        "method": "POST",
+        "requestUri": "/services/{serviceId}/databases"
+      },
+      "input": {"shape": "CreateDatabaseRequest"},
+      "output": {"shape": "CreateDatabaseResponse"},
+      "documentation": "<p>Creates database.</p>"
+    },
     "CreateService": {
       "name": "CreateService",
       "http": {
@@ -20,6 +30,16 @@
       "input": {"shape": "CreateServiceRequest"},
       "output": {"shape": "CreateServiceResponse"},
       "documentation": "<p>Creates service.</p>"
+    },
+    "CreateUser": {
+      "name": "CreateUser",
+      "http": {
+        "method": "POST",
+        "requestUri": "/services/{serviceId}/users"
+      },
+      "input": {"shape": "CreateUserRequest"},
+      "output": {"shape": "CreateUserResponse"},
+      "documentation": "<p>Creates user.</p>"
     },
     "DeleteBackups": {
       "name": "DeleteBackups",
@@ -31,6 +51,16 @@
       "output": {"shape": "DeleteBackupsResponse"},
       "documentation": "<p>Deletes service backups.</p>"
     },
+    "DeleteDatabase": {
+      "name": "DeleteDatabase",
+      "http": {
+        "method": "DELETE",
+        "requestUri": "/services/{serviceId}/databases/{databaseId}"
+      },
+      "input": {"shape": "DeleteDatabaseRequest"},
+      "output": {"shape": "DeleteDatabaseResponse"},
+      "documentation": "<p>Deletes database.</p>"
+    },
     "DeleteService": {
       "name": "DeleteService",
       "http": {
@@ -40,6 +70,16 @@
       "input": {"shape": "DeleteServiceRequest"},
       "output": {"shape": "DeleteServiceResponse"},
       "documentation": "<p>Deletes service.</p>"
+    },
+    "DeleteUser": {
+      "name": "DeleteUser",
+      "http": {
+        "method": "DELETE",
+        "requestUri": "/services/{serviceId}/users/{userId}"
+      },
+      "input": {"shape": "DeleteUserRequest"},
+      "output": {"shape": "DeleteUserResponse"},
+      "documentation": "<p>Deletes user.</p>"
     },
     "DescribeBackup": {
       "name": "DescribeBackup",
@@ -51,6 +91,16 @@
       "output": {"shape": "DescribeBackupResponse"},
       "documentation": "<p>Returns descriptive information about backup.</p>"
     },
+    "DescribeDatabase": {
+      "name": "DescribeDatabase",
+      "http": {
+        "method": "GET",
+        "requestUri": "/services/{serviceId}/databases/{databaseId}"
+      },
+      "input": {"shape": "DescribeDatabaseRequest"},
+      "output": {"shape": "DescribeDatabaseResponse"},
+      "documentation": "<p>Returns descriptive information about database.</p>"
+    },
     "DescribeService": {
       "name": "DescribeService",
       "http": {
@@ -60,6 +110,16 @@
       "input": {"shape": "DescribeServiceRequest"},
       "output": {"shape": "DescribeServiceResponse"},
       "documentation": "<p>Returns descriptive information about PaaS service.</p>"
+    },
+    "DescribeUser": {
+      "name": "DescribeUser",
+      "http": {
+        "method": "GET",
+        "requestUri": "/services/{serviceId}/users/{userId}"
+      },
+      "input": {"shape": "DescribeUserRequest"},
+      "output": {"shape": "DescribeUserResponse"},
+      "documentation": "<p>Returns descriptive information about user.</p>"
     },
     "ListBackups": {
       "name": "ListBackups",
@@ -81,6 +141,16 @@
       "output": {"shape": "ListBackupUsersResponse"},
       "documentation": "<p>Returns users list, available for service backup.</p>"
     },
+    "ListDatabases": {
+      "name": "ListDatabases",
+      "http": {
+        "method": "GET",
+        "requestUri": "/services/{serviceId}/databases"
+      },
+      "input": {"shape": "ListDatabasesRequest"},
+      "output": {"shape": "ListDatabasesResponse"},
+      "documentation": "<p>Returns databases list.</p>"
+    },
     "ListServices": {
       "name": "ListServices",
       "http": {
@@ -90,6 +160,16 @@
       "input": {"shape": "ListServicesRequest"},
       "output": {"shape": "ListServicesResponse"},
       "documentation": "<p>Returns list of PaaS services.</p>"
+    },
+    "ListUsers": {
+      "name": "ListUsers",
+      "http": {
+        "method": "GET",
+        "requestUri": "/services/{serviceId}/users"
+      },
+      "input": {"shape": "ListUsersRequest"},
+      "output": {"shape": "ListUsersResponse"},
+      "documentation": "<p>Returns users list.</p>"
     },
     "ModifyBackup": {
       "name": "ModifyBackup",
@@ -101,6 +181,16 @@
       "output": {"shape": "ModifyBackupResponse"},
       "documentation": "<p>Modifies the PaaS backup.</p>"
     },
+    "ModifyDatabase": {
+      "name": "ModifyDatabase",
+      "http": {
+        "method": "PUT",
+        "requestUri": "/services/{serviceId}/databases/{databaseId}"
+      },
+      "input": {"shape": "ModifyDatabaseRequest"},
+      "output": {"shape": "ModifyDatabaseResponse"},
+      "documentation": "<p>Modifies database.</p>"
+    },
     "ModifyService": {
       "name": "ModifyService",
       "http": {
@@ -110,6 +200,16 @@
       "input": {"shape": "ModifyServiceRequest"},
       "output": {"shape": "ModifyServiceResponse"},
       "documentation": "<p>Modifies the PaaS service.</p>"
+    },
+    "ModifyUser": {
+      "name": "ModifyUser",
+      "http": {
+        "method": "PUT",
+        "requestUri": "/services/{serviceId}/users/{userId}"
+      },
+      "input": {"shape": "ModifyUserRequest"},
+      "output": {"shape": "ModifyUserResponse"},
+      "documentation": "<p>Modifies database.</p>"
     }
   },
   "shapes": {
@@ -168,6 +268,27 @@
       }
     },
     "Boolean": {"type": "boolean"},
+    "CreateDatabaseRequest": {
+      "type": "structure",
+      "required": [
+        "serviceId",
+        "database"
+      ],
+      "members": {
+        "serviceId": {
+          "shape": "String",
+          "location": "uri",
+          "locationName": "serviceId"
+        },
+        "database": {"shape": "DatabaseCreateRequest"}
+      }
+    },
+    "CreateDatabaseResponse": {
+      "type": "structure",
+      "members": {
+        "database": {"shape": "DatabaseResponse"}
+      }
+    },
     "CreateServiceRequest": {
       "type": "structure",
       "required": [
@@ -213,16 +334,25 @@
         }
       }
     },
-    "Database": {
+    "CreateUserRequest": {
       "type": "structure",
       "required": [
-        "name"
+        "serviceId",
+        "user"
       ],
       "members": {
-        "name": {"shape": "String"},
-        "backupEnabled": {"shape": "Boolean"},
-        "parameters": {"shape": "None"},
-        "users": {"shape": "UserList"}
+        "serviceId": {
+          "shape": "String",
+          "location": "uri",
+          "locationName": "serviceId"
+        },
+        "user": {"shape": "UserCreateRequest"}
+      }
+    },
+    "CreateUserResponse": {
+      "type": "structure",
+      "members": {
+        "user": {"shape": "UserResponse"}
       }
     },
     "DatabaseBackup": {
@@ -243,9 +373,57 @@
       "type": "list",
       "member": {"shape": "DatabaseBackup"}
     },
-    "DatabaseList": {
+    "DatabaseCompactResponse": {
+      "type": "structure",
+      "members": {
+        "id": {"shape": "String"},
+        "name": {"shape": "String"}
+      }
+    },
+    "DatabaseCompactResponseList": {
       "type": "list",
-      "member": {"shape": "Database"}
+      "member": {"shape": "DatabaseCompactResponse"}
+    },
+    "DatabaseCreateRequest": {
+      "type": "structure",
+      "required": [
+        "name"
+      ],
+      "members": {
+        "name": {"shape": "String"},
+        "backupEnabled": {"shape": "Boolean"},
+        "parameters": {"shape": "None"},
+        "users": {"shape": "UserCreateRequestList"}
+      }
+    },
+    "DatabaseCreateRequestList": {
+      "type": "list",
+      "member": {"shape": "DatabaseCreateRequest"}
+    },
+    "DatabaseModifyRequest": {
+      "type": "structure",
+      "members": {
+        "backupEnabled": {"shape": "Boolean"},
+        "parameters": {"shape": "None"},
+        "users": {"shape": "UserCreateRequestList"}
+      }
+    },
+    "DatabaseResponse": {
+      "type": "structure",
+      "required": [
+        "name"
+      ],
+      "members": {
+        "id": {"shape": "String"},
+        "name": {"shape": "String"},
+        "backupEnabled": {"shape": "Boolean"},
+        "parameters": {"shape": "None"},
+        "users": {"shape": "UserResponseList"}
+      }
+    },
+    "DatabaseResponseList": {
+      "type": "list",
+      "member": {"shape": "DatabaseResponse"}
     },
     "DeleteBackupsRequest": {
       "type": "structure",
@@ -266,6 +444,29 @@
       }
     },
     "DeleteBackupsResponse": {
+      "type": "structure",
+      "members": {}
+    },
+    "DeleteDatabaseRequest": {
+      "type": "structure",
+      "required": [
+        "serviceId",
+        "databaseId"
+      ],
+      "members": {
+        "serviceId": {
+          "shape": "String",
+          "location": "uri",
+          "locationName": "serviceId"
+        },
+        "databaseId": {
+          "shape": "String",
+          "location": "uri",
+          "locationName": "databaseId"
+        }
+      }
+    },
+    "DeleteDatabaseResponse": {
       "type": "structure",
       "members": {}
     },
@@ -292,6 +493,29 @@
       "type": "structure",
       "members": {}
     },
+    "DeleteUserRequest": {
+      "type": "structure",
+      "required": [
+        "serviceId",
+        "userId"
+      ],
+      "members": {
+        "serviceId": {
+          "shape": "String",
+          "location": "uri",
+          "locationName": "serviceId"
+        },
+        "userId": {
+          "shape": "String",
+          "location": "uri",
+          "locationName": "userId"
+        }
+      }
+    },
+    "DeleteUserResponse": {
+      "type": "structure",
+      "members": {}
+    },
     "DescribeBackupRequest": {
       "type": "structure",
       "required": [
@@ -313,6 +537,31 @@
           "shape": "Backup",
           "documentation": "<p>The full description of the specified backup.</p>"
         }
+      }
+    },
+    "DescribeDatabaseRequest": {
+      "type": "structure",
+      "required": [
+        "serviceId",
+        "databaseId"
+      ],
+      "members": {
+        "serviceId": {
+          "shape": "String",
+          "location": "uri",
+          "locationName": "serviceId"
+        },
+        "databaseId": {
+          "shape": "String",
+          "location": "uri",
+          "locationName": "databaseId"
+        }
+      }
+    },
+    "DescribeDatabaseResponse": {
+      "type": "structure",
+      "members": {
+        "database": {"shape": "DatabaseResponse"}
       }
     },
     "DescribeServiceRequest": {
@@ -338,6 +587,31 @@
         }
       }
     },
+    "DescribeUserRequest": {
+      "type": "structure",
+      "required": [
+        "serviceId",
+        "userId"
+      ],
+      "members": {
+        "serviceId": {
+          "shape": "String",
+          "location": "uri",
+          "locationName": "serviceId"
+        },
+        "userId": {
+          "shape": "String",
+          "location": "uri",
+          "locationName": "userId"
+        }
+      }
+    },
+    "DescribeUserResponse": {
+      "type": "structure",
+      "members": {
+        "user": {"shape": "UserResponse"}
+      }
+    },
     "Instance": {
       "type": "structure",
       "members": {
@@ -356,6 +630,10 @@
       "member": {"shape": "Instance"}
     },
     "Integer": {"type": "integer"},
+    "ListBackups": {
+      "type": "list",
+      "member": {"shape": "Backup"}
+    },
     "ListBackupsRequest": {
       "type": "structure",
       "members": {
@@ -372,10 +650,6 @@
           "documentation": "<p>The service ID filter.</p>"
         }
       }
-    },
-    "ListBackups": {
-      "type": "list",
-      "member": {"shape": "Backup"}
     },
     "ListBackupsResponse": {
       "type": "structure",
@@ -403,6 +677,25 @@
           "shape": "ListBackupUsers",
           "documentation": "<p>A list of users, available for service backup.</p>"
         }
+      }
+    },
+    "ListDatabasesRequest": {
+      "type": "structure",
+      "required": [
+        "serviceId"
+      ],
+      "members": {
+        "serviceId": {
+          "shape": "String",
+          "location": "uri",
+          "locationName": "serviceId"
+        }
+      }
+    },
+    "ListDatabasesResponse": {
+      "type": "structure",
+      "members": {
+        "databases": {"shape": "DatabaseCompactResponseList"}
       }
     },
     "ListServiceItem": {
@@ -446,6 +739,25 @@
         }
       }
     },
+    "ListUsersRequest": {
+      "type": "structure",
+      "required": [
+        "serviceId"
+      ],
+      "members": {
+        "serviceId": {
+          "shape": "String",
+          "location": "uri",
+          "locationName": "serviceId"
+        }
+      }
+    },
+    "ListUsersResponse": {
+      "type": "structure",
+      "members": {
+        "users": {"shape": "UserCompactResponseList"}
+      }
+    },
     "ModifyBackupRequest": {
       "type": "structure",
       "required": [
@@ -473,6 +785,33 @@
         }
       }
     },
+    "ModifyDatabaseRequest": {
+      "type": "structure",
+      "required": [
+        "serviceId",
+        "databaseId",
+        "database"
+      ],
+      "members": {
+        "serviceId": {
+          "shape": "String",
+          "location": "uri",
+          "locationName": "serviceId"
+        },
+        "databaseId": {
+          "shape": "String",
+          "location": "uri",
+          "locationName": "databaseId"
+        },
+        "database": {"shape": "DatabaseModifyRequest"}
+      }
+    },
+    "ModifyDatabaseResponse": {
+      "type": "structure",
+      "members": {
+        "database": {"shape": "DatabaseResponse"}
+      }
+    },
     "ModifyServiceRequest": {
       "type": "structure",
       "required": [
@@ -485,8 +824,8 @@
           "location": "uri",
           "locationName": "serviceId"
         },
-        "users": {"shape": "UserList"},
-        "databases": {"shape": "DatabaseList"},
+        "users": {"shape": "UserCreateRequestList"},
+        "databases": {"shape": "DatabaseCreateRequestList"},
         "backupSettings": {"shape": "BackupSettingsRequest"}
       }
     },
@@ -497,6 +836,33 @@
           "shape": "Service",
           "documentation": "<p>The full description of your modified service.</p>"
         }
+      }
+    },
+    "ModifyUserRequest": {
+      "type": "structure",
+      "required": [
+        "serviceId",
+        "userId",
+        "user"
+      ],
+      "members": {
+        "serviceId": {
+          "shape": "String",
+          "location": "uri",
+          "locationName": "serviceId"
+        },
+        "userId": {
+          "shape": "String",
+          "location": "uri",
+          "locationName": "userId"
+        },
+        "user": {"shape": "UserModifyRequest"}
+      }
+    },
+    "ModifyUserResponse": {
+      "type": "structure",
+      "members": {
+        "user": {"shape": "UserResponse"}
       }
     },
     "None": {"type": "none"},
@@ -531,8 +897,8 @@
         "highAvailability": {"shape": "Boolean"},
         "sshKeyName": {"shape": "String"},
         "parameters": {"shape": "None"},
-        "users": {"shape": "UserList"},
-        "databases": {"shape": "DatabaseList"},
+        "users": {"shape": "UserResponseList"},
+        "databases": {"shape": "DatabaseResponseList"},
         "status": {"shape": "String"},
         "errorCode": {"shape": "String"},
         "errorDescription": {"shape": "String"},
@@ -550,7 +916,18 @@
       "member": {"shape": "String"}
     },
     "Timestamp": {"type": "timestamp"},
-    "User": {
+    "UserCompactResponse": {
+      "type": "structure",
+      "members": {
+        "id": {"shape": "String"},
+        "name": {"shape": "String"}
+      }
+    },
+    "UserCompactResponseList": {
+      "type": "list",
+      "member": {"shape": "UserCompactResponse"}
+    },
+    "UserCreateRequest": {
       "type": "structure",
       "required": [
         "name"
@@ -560,9 +937,30 @@
         "parameters": {"shape": "None"}
       }
     },
-    "UserList": {
+    "UserCreateRequestList": {
       "type": "list",
-      "member": {"shape": "User"}
+      "member": {"shape": "UserCreateRequest"}
+    },
+    "UserModifyRequest": {
+      "type": "structure",
+      "members": {
+        "parameters": {"shape": "None"}
+      }
+    },
+    "UserResponse": {
+      "type": "structure",
+      "required": [
+        "name"
+      ],
+      "members": {
+        "id": {"shape": "String"},
+        "name": {"shape": "String"},
+        "parameters": {"shape": "None"}
+      }
+    },
+    "UserResponseList": {
+      "type": "list",
+      "member": {"shape": "UserResponse"}
     }
   }
 }
