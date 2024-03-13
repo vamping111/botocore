@@ -1270,6 +1270,10 @@
         }
       }
     },
+    "ClusterSecurityGroupList": {
+      "type": "list",
+      "member": {"shape": "ClusterSecurityGroup"}
+    },
     "GetClusterSecurityGroupsRequest": {
       "type": "structure",
       "members": {
@@ -1284,7 +1288,7 @@
       "type": "structure",
       "members": {
         "security_groups": {
-          "shape": "ClusterSecurityGroup"
+          "shape": "ClusterSecurityGroupList"
         }
       }
     },
