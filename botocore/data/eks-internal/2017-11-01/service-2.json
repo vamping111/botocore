@@ -195,6 +195,10 @@
     }
   },
   "shapes": {
+    "BoxedBoolean":{
+      "type":"boolean",
+      "box":true
+    },
     "EmptyStruct": {
       "type": "structure",
       "members": {}
