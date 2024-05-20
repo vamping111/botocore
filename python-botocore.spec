@@ -4,7 +4,7 @@
 Name:           python-%{pkgname}
 # NOTICE - Updating this package requires updating python-boto3
 Version:        1.20.14
-Release:        CROC32%{?buildid}%{?dist}
+Release:        CROC42%{?buildid}%{?dist}
 Summary:        Low-level, data-driven core of boto 3
 
 License:        ASL 2.0
@@ -47,6 +47,44 @@ rm -rf tests/integration
 %{python3_sitelib}/%{pkgname}-*.egg-info/
 
 %changelog
+* Thu Apr 25 2024 Anastasia Berezko <aberezko@croc.ru> - 1.20.14-CROC42
+- data: add admin service
+
+* Thu Apr 04 2024 Andrey Kulaev <akulaev@croc.ru> - 1.20.14-CROC41
+- eks: add private endpoint
+
+* Mon Mar 11 2024 Andrey Kulaev <akulaev@croc.ru> - 1.20.14-CROC40
+- paas: add methods for elasticsearch snapshot repositories
+
+* Wed Feb 28 2024 Andrey Kulaev <akulaev@croc.ru> - 1.20.14-CROC39
+- paas: add isRolledBack attribute to Service shape
+
+* Wed Feb 14 2024 Evgenii Proskurnev <eproskurnev@croc.ru> - 1.20.14-CROC38
+- botocore: remove unused fields from DatabaseBackup structure
+
+* Wed Jan 31 2024 Anastasia Berezko <aberezko@croc.ru> - 1.20.14-CROC37
+- eks: fix parameters types in cluster schema
+- backup: add ResourcesCount to ListBackupSelections output
+
+* Wed Jan 17 2024 Ivan Konov <ikonov@croc.ru> - 1.20.14-CROC36
+- add method for load balancers
+- allow environment version update
+- add AWS Sudo ID to Json serializer, add available VLANs
+
+* Mon Dec 11 2023 Grigoriy Kulagin <grkulagin@croc.ru> - 1.20.14-CROC35
+- autoscaling: Modify types for c2-client compatibility
+
+* Tue Nov 07 2023 Linar Nasyyrov <lnasyyrov@croc.ru> - 1.20.14-CROC34
+- s3: move trail recorc in s3 to system users
+- paas: add elk and prometheus
+
+* Tue Oct 10 2023 Grigoriy Kulagin <grkulagin@croc.ru> - 1.20.14-CROC33
+- as: Make Notification Configurations C2-compliant
+- ec2: add extra host fields
+- ec2: make host properties instance family field list of string
+- ec2: add host type api
+- ec2: add supported instance types to host type
+
 * Tue Sep 26 2023 Anastasia Berezko <aberezko@croc.ru> - 1.20.14-CROC32
 - paas: add methods for databases and users
 

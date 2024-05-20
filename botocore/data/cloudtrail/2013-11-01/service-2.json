@@ -1731,7 +1731,7 @@
     },
     "UpdateTrailRequest":{
       "type":"structure",
-      "required":["Name"],
+      "required":["Name", "S3BucketName"],
       "members":{
         "Name":{
           "shape":"String",
