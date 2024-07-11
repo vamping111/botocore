@@ -3705,6 +3705,16 @@
       "output":{"shape":"ModifyReservedInstancesResult"},
       "documentation":"<p>Modifies the Availability Zone, instance count, instance type, or network platform (EC2-Classic or EC2-VPC) of your Reserved Instances. The Reserved Instances to be modified must be identical, except for Availability Zone, network platform, and instance type.</p> <p>For more information, see <a href=\"https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ri-modifying.html\">Modifying Reserved Instances</a> in the <i>Amazon EC2 User Guide</i>.</p>"
     },
+    "ModifySecurityGroupRules":{
+      "name":"ModifySecurityGroupRules",
+      "http":{
+        "method":"POST",
+        "requestUri":"/"
+      },
+      "input":{"shape":"ModifySecurityGroupRulesRequest"},
+      "output":{"shape":"ModifySecurityGroupRulesResult"},
+      "documentation":"<p>Modifies the rules of a security group.</p>"
+    },
     "ModifySecurityGroupAttribute":{
       "name":"ModifySecurityGroupAttribute",
       "http":{
@@ -26949,6 +26959,11 @@
     "IpPermission":{
       "type":"structure",
       "members":{
+        "Id": {
+          "shape":"String",
+          "documentation":"The ID of the security group rule.",
+          "locationName":"id"
+        },
         "FromPort":{
           "shape":"Integer",
           "documentation":"<p>The start of port range for the TCP and UDP protocols, or an ICMP/ICMPv6 type number. A value of <code>-1</code> indicates all ICMP/ICMPv6 types. If you specify all ICMP/ICMPv6 types, you must specify all codes.</p>",
@@ -29979,6 +29994,38 @@
         }
       },
       "documentation":"<p>Contains the output of ModifyReservedInstances.</p>"
+    },
+    "ModifySecurityGroupRulesRequest":{
+      "type":"structure",
+      "required":[
+        "GroupId",
+        "SecurityGroupRules"
+      ],
+      "members":{
+        "GroupId":{
+          "shape":"SecurityGroupId",
+          "documentation":"<p>The ID of the security group.</p>"
+        },
+        "SecurityGroupRules":{
+          "shape":"SecurityGroupRuleUpdateList",
+          "documentation":"<p>Information about the security group properties to update.</p>",
+          "locationName":"SecurityGroupRule"
+        },
+        "DryRun":{
+          "shape":"Boolean",
+          "documentation":"<p>Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is <code>DryRunOperation</code>. Otherwise, it is <code>UnauthorizedOperation</code>.</p>"
+        }
+      }
+    },
+    "ModifySecurityGroupRulesResult":{
+      "type":"structure",
+      "members":{
+        "Return":{
+          "shape":"Boolean",
+          "documentation":"<p>Returns <code>true</code> if the request succeeds; otherwise, returns an error.</p>",
+          "locationName":"return"
+        }
+      }
     },
     "ModifySecurityGroupAttributeRequest":{
       "type":"structure",
@@ -37357,6 +37404,81 @@
         }
       },
       "documentation":"<p>Describes a security group.</p>"
+    },
+    "SecurityGroupRuleId":{"type":"string"},
+    "SecurityGroupRuleIdList":{
+      "type":"list",
+      "member":{
+        "shape":"String",
+        "locationName":"item"
+      }
+    },
+    "SecurityGroupRuleList":{
+      "type":"list",
+      "member":{
+        "shape":"SecurityGroupRule",
+        "locationName":"item"
+      }
+    },
+    "SecurityGroupRuleRequest":{
+      "type":"structure",
+      "members":{
+        "IpProtocol":{
+          "shape":"String",
+          "documentation":"<p>The IP protocol name (<code>tcp</code>, <code>udp</code>, <code>icmp</code>, <code>icmpv6</code>) or number (see <a href=\"http://www.iana.org/assignments/protocol-numbers/protocol-numbers.xhtml\">Protocol Numbers</a>). </p> <p>Use <code>-1</code> to specify all protocols.</p>"
+        },
+        "FromPort":{
+          "shape":"Integer",
+          "documentation":"<p>If the protocol is TCP or UDP, this is the start of the port range. If the protocol is ICMP or ICMPv6, this is the ICMP type or -1 (all ICMP types).</p>"
+        },
+        "ToPort":{
+          "shape":"Integer",
+          "documentation":"<p>If the protocol is TCP or UDP, this is the end of the port range. If the protocol is ICMP or ICMPv6, this is the ICMP code or -1 (all ICMP codes). If the start port is -1 (all ICMP types), then the end port must be -1 (all ICMP codes).</p>"
+        },
+        "CidrIpv4":{
+          "shape":"String",
+          "documentation":"<p>The IPv4 CIDR range. To specify a single IPv4 address, use the /32 prefix length. </p>"
+        },
+        "CidrIpv6":{
+          "shape":"String",
+          "documentation":"<p>The IPv6 CIDR range. To specify a single IPv6 address, use the /128 prefix length.</p>"
+        },
+        "PrefixListId":{
+          "shape":"PrefixListResourceId",
+          "documentation":"<p>The ID of the prefix list.</p>"
+        },
+        "ReferencedGroupId":{
+          "shape":"SecurityGroupId",
+          "documentation":"<p>The ID of the security group that is referenced in the security group rule.</p>"
+        },
+        "Description":{
+          "shape":"String",
+          "documentation":"<p>The description of the security group rule.</p>"
+        }
+      },
+      "documentation":"<p>Describes a security group rule.</p> <p>You must specify exactly one of the following parameters, based on the rule type:</p> <ul> <li> <p>CidrIpv4</p> </li> <li> <p>CidrIpv6</p> </li> <li> <p>PrefixListId</p> </li> <li> <p>ReferencedGroupId</p> </li> </ul> <p>When you modify a rule, you cannot change the rule type. For example, if the rule uses an IPv4 address range, you must use <code>CidrIpv4</code> to specify a new IPv4 address range.</p>"
+    },
+    "SecurityGroupRuleUpdate":{
+      "type":"structure",
+      "required":["SecurityGroupRuleId"],
+      "members":{
+        "SecurityGroupRuleId":{
+          "shape":"SecurityGroupRuleId",
+          "documentation":"<p>The ID of the security group rule.</p>"
+        },
+        "SecurityGroupRule":{
+          "shape":"SecurityGroupRuleRequest",
+          "documentation":"<p>Information about the security group rule.</p>"
+        }
+      },
+      "documentation":"<p>Describes an update to a security group rule.</p>"
+    },
+    "SecurityGroupRuleUpdateList":{
+      "type":"list",
+      "member":{
+        "shape":"SecurityGroupRuleUpdate",
+        "locationName":"item"
+      }
     },
     "SecurityGroupList":{
       "type":"list",
