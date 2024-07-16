@@ -24552,6 +24552,11 @@
           "documentation":"<p>[EC2-VPC] An available IP address from the IP address range of the subnet.</p>",
           "locationName":"privateIpAddress"
         },
+        "RamMonitoring":{
+          "shape":"Boolean",
+          "documentation":"<p>Specifies whether RAM monitoring is enabled for the instance.</p>",
+          "locationName":"ramMonitoring"
+        },
         "SubnetId":{
           "shape":"SubnetId",
           "documentation":"<p>[EC2-VPC] The ID of the subnet in which to launch the instance.</p>",
@@ -25085,6 +25090,11 @@
           "documentation":"<p>The RAM disk associated with this instance, if applicable.</p>",
           "locationName":"ramdiskId"
         },
+        "RamMonitoring":{
+          "shape":"Boolean",
+          "documentation":"<p>Specifies whether RAM monitoring is enabled for the instance.</p>",
+          "locationName":"ramMonitoring"
+        },
         "State":{
           "shape":"InstanceState",
           "documentation":"<p>The current state of the instance.</p>",
@@ -25320,6 +25330,11 @@
           "documentation":"<p>A list of product codes.</p>",
           "locationName":"productCodes"
         },
+        "RamMonitoring":{
+          "shape":"AttributeBooleanValue",
+          "documentation":"<p>Specifies whether RAM monitoring is enabled for the instance.</p>",
+          "locationName":"ramMonitoring"
+        },
         "RamdiskId":{
           "shape":"AttributeValue",
           "documentation":"<p>The RAM disk ID.</p>",
@@ -25373,7 +25388,8 @@
         "enaSupport",
         "enclaveOptions",
         "highAvailable",
-        "virtualizationType"
+        "virtualizationType",
+        "ramMonitoring"
       ]
     },
     "InstanceBlockDeviceMapping":{
@@ -29622,6 +29638,11 @@
           "shape":"AttributeValue",
           "documentation":"<p>Changes the key pair.</p>",
           "locationName":"keyName"
+        },
+        "RamMonitoring":{
+          "shape":"AttributeBooleanValue",
+          "documentation":"<p>Specifies whether RAM monitoring is enabled for the instance.</p>",
+          "locationName":"ramMonitoring"
         },
         "Ramdisk":{
           "shape":"AttributeValue",
@@ -34663,6 +34684,10 @@
           "shape":"LaunchTemplatesMonitoringRequest",
           "documentation":"<p>The monitoring for the instance.</p>"
         },
+        "RamMonitoring":{
+          "shape":"Boolean",
+          "documentation":"<p>Specifies whether RAM monitoring is enabled for the instance.</p>"
+        },
         "Placement":{
           "shape":"LaunchTemplatePlacementRequest",
           "documentation":"<p>The placement for the instance.</p>"
@@ -35824,6 +35849,11 @@
           "documentation":"<p>The monitoring for the instance.</p>",
           "locationName":"monitoring"
         },
+        "RamMonitoring":{
+          "shape":"Boolean",
+          "documentation":"<p>Specifies whether RAM monitoring is enabled for the instance.</p>",
+          "locationName":"ramMonitoring"
+        },
         "Placement":{
           "shape":"LaunchTemplatePlacement",
           "documentation":"<p>The placement of the instance.</p>",
@@ -36508,6 +36538,10 @@
         "Monitoring":{
           "shape":"RunInstancesMonitoringEnabled",
           "documentation":"<p>Specifies whether detailed monitoring is enabled for the instance.</p>"
+        },
+        "RamMonitoring":{
+          "shape":"Boolean",
+          "documentation":"<p>Specifies whether RAM monitoring is enabled for the instance.</p>"
         },
         "Placement":{
           "shape":"Placement",
