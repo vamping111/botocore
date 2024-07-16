@@ -1949,6 +1949,10 @@
         "LastBackupTime":{
           "shape":"timestamp",
           "documentation":"<p>The date and time that a resource was last backed up, in Unix format and Coordinated Universal Time (UTC). The value of <code>LastBackupTime</code> is accurate to milliseconds. For example, the value 1516925490.087 represents Friday, January 26, 2018 12:11:30.087 AM.</p>"
+        },
+        "LastTagName":{
+          "shape":"string",
+          "documentation":"<p>The tag name of resource retrieved from the last recovery point.</p>"
         }
       }
     },
@@ -3079,6 +3083,10 @@
         "LastBackupTime":{
           "shape":"timestamp",
           "documentation":"<p>The date and time a resource was last backed up, in Unix format and Coordinated Universal Time (UTC). The value of <code>LastBackupTime</code> is accurate to milliseconds. For example, the value 1516925490.087 represents Friday, January 26, 2018 12:11:30.087 AM.</p>"
+        },
+        "LastTagName":{
+          "shape":"string",
+          "documentation":"<p>The tag name of resource retrieved from the last recovery point.</p>"
         }
       },
       "documentation":"<p>A structure that contains information about a backed-up resource.</p>"

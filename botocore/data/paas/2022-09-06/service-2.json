@@ -611,6 +611,7 @@
         "dataVolumeType": {"shape": "String"},
         "dataVolumeSize": {"shape": "Integer"},
         "dataVolumeIops": {"shape": "Integer"},
+        "instanceQty": {"shape": "Integer"},
         "instanceType": {"shape": "String"},
         "highAvailability": {"shape": "Boolean"},
         "sshKeyName": {"shape": "String"},
@@ -1001,7 +1002,7 @@
         "interfaceId": {"shape": "String"},
         "status": {"shape": "String"},
         "index": {"shape": "Integer"},
-        "endpoint": {"shape": "String"},
+        "endpoints": {"shape": "StringList"},
         "name": {"shape": "String"}
       }
     },
@@ -1459,6 +1460,7 @@
         "dataVolumeIops": {"shape": "Integer"},
         "instanceType": {"shape": "String"},
         "highAvailability": {"shape": "Boolean"},
+        "instanceQty": {"shape": "Integer"},
         "sshKeyName": {"shape": "String"},
         "parameters": {"shape": "None"},
         "users": {"shape": "UserResponseList"},
