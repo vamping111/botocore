@@ -3380,6 +3380,15 @@
       "output":{"shape":"GetReservedInstancesExchangeQuoteResult"},
       "documentation":"<p>Returns a quote and exchange information for exchanging one or more specified Convertible Reserved Instances for a new Convertible Reserved Instance. If the exchange cannot be performed, the reason is returned in the response. Use <a>AcceptReservedInstancesExchangeQuote</a> to perform the exchange.</p>"
     },
+    "GetTariff":{
+      "name":"GetTariff",
+      "http":{
+        "method":"POST",
+        "requestUri":"/"
+      },
+      "output":{"shape":"GetTariffResult"},
+      "documentation":"<p>Returns the current tariff for a customer account.</p>"
+    },
     "GetTransitGatewayAttachmentPropagations":{
       "name":"GetTransitGatewayAttachmentPropagations",
       "http":{
@@ -22947,6 +22956,61 @@
       },
       "documentation":"<p>Contains the output of GetReservedInstancesExchangeQuote.</p>"
     },
+    "GetTariffResult":{
+      "type": "structure",
+      "members":{
+        "Currency":{
+          "shape":"String",
+          "documentation":"<p>The currency of the tariff.</p>",
+          "locationName":"currency"
+        },
+        "Description":{
+          "shape":"String",
+          "documentation":"<p>The description of the tariff.</p>",
+          "locationName":"description"
+        },
+        "Name":{
+          "shape":"String",
+          "documentation":"<p>The name of the tariff.</p>",
+          "locationName":"name"
+        },
+        "RequestId":{
+          "shape":"String",
+          "documentation":"<p>The request ID.</p>",
+          "locationName":"request_id"
+        },
+        "Instances": {
+          "shape":"TariffInstanceList",
+          "documentation":"<p>List of instance type tariffs.</p>",
+          "locationName":"instances"
+        },
+       "InstanceTypes": {
+          "shape":"TariffInstanceTypeList",
+          "documentation":"<p>List of instance type tariffs.</p>",
+          "locationName":"instance_types"
+        },
+        "Others":{
+          "shape":"TariffServiceList",
+          "documentation":"<p>List of other service tariffs.</p>",
+          "locationName":"others"
+        },
+        "Volumes":{
+          "shape":"TariffVolumeList",
+          "documentation":"<p>List of volume type tariffs.</p>",
+          "locationName":"volumes"
+        },
+       "Hosts": {
+          "shape":"TariffHostList",
+          "documentation":"<p>List of hosts tariffs.</p>",
+          "locationName":"hosts"
+        },
+       "Oses": {
+          "shape":"TariffOSList",
+          "documentation":"<p>List of OS tariffs.</p>",
+          "locationName":"oses"
+        }
+      }
+    },
     "GetTransitGatewayAttachmentPropagationsRequest":{
       "type":"structure",
       "required":["TransitGatewayAttachmentId"],
@@ -39686,6 +39750,394 @@
         "locationName":"item"
       }
     },
+    "TariffHost": {
+      "type":"structure",
+      "members":{
+        "Name": {
+          "shape": "String",
+          "documentation": "<p>The name of host.</p>",
+          "locationName": "name"
+        },
+        "LocalizedNames": {
+          "shape": "TariffLocalizedNames",
+          "locationName": "localized_names"
+        },
+        "Description": {
+          "shape": "String",
+          "documentation": "<p>The description of host.</p>",
+          "locationName": "description"
+        },
+        "Rates": {
+          "shape": "TariffRateList",
+          "documentation": "<p>List of host rates for availability zones. If the host can not be rated depending on the availability zone, the list contains just one object with availability_zone set to all.</p>",
+          "locationName": "rates"
+        },
+        "Measure": {
+          "shape": "String",
+          "documentation": "<p>The measure of host usage.</p>",
+          "locationName": "measure"
+        },
+        "Category": {
+          "shape": "String",
+          "documentation": "<p>The category of host.</p>",
+          "locationName": "category"
+        },
+        "Deprecated": {
+          "shape": "Boolean",
+          "documentation": "<p>Determines whether a type is outdated.</p>",
+          "locationName": "deprecated"
+        },
+        "Commitment": {
+          "shape": "Integer",
+          "documentation": "<p>The host lease term.</p>",
+          "locationName": "commitment"
+        },
+        "Type": {
+          "shape": "String",
+          "documentation": "<p>The type of host.</p>",
+          "locationName": "type"
+        },
+        "CPUGeneration": {
+          "shape": "String",
+          "documentation": "<p>The CPU generation name.</p>",
+          "locationName": "cpu_generation"
+        },
+        "CCUs": {
+          "shape": "String",
+          "documentation": "<p>The amount of Compute Units.</p>",
+          "locationName": "ccus"
+        },
+        "Memory": {
+          "shape": "Integer",
+          "documentation": "<p>The amount of RAM.</p>",
+          "locationName": "memory"
+        },
+        "Sockets":  {
+          "shape": "Integer",
+          "documentation": "<p>The count of sockets.</p>",
+          "locationName": "sockets"
+        },
+        "PhysicalCores": {
+          "shape": "Integer",
+          "documentation": "<p>The number of physical cores.</p>",
+          "locationName": "physical_cores"
+        }
+      }
+    },
+    "TariffHostList": {
+      "type":"list",
+      "member":{
+        "shape":"TariffHost",
+        "locationName":"item"
+      }
+    },
+    "TariffInstance":{
+      "type":"structure",
+      "members": {
+        "CCUs": {
+          "shape": "String",
+          "documentation": "<p>The amount of Compute Units.</p>",
+          "locationName": "ccus"
+        },
+        "CPU": {
+          "shape": "Integer",
+          "documentation": "<p>The number of cpu cores.</p>",
+          "locationName": "cpu"
+        },
+        "Deprecated": {
+          "shape": "Boolean",
+          "documentation": "<p>Determines whether a type is outdated.</p>",
+          "locationName": "deprecated"
+        },
+        "Memory": {
+          "shape": "Integer",
+          "documentation": "<p>The amount of RAM.</p>",
+          "locationName": "memory"
+        },
+        "Name": {
+          "shape": "String",
+          "documentation": "<p>The name of the instance type.</p>",
+          "locationName": "name"
+        },
+        "Services": {
+          "shape": "TariffServiceList",
+          "documentation": "<p>List of tariffs for operation systems with the instance type.</p>",
+          "locationName": "services"
+        }
+    }
+  },
+    "TariffInstanceList":{
+      "type":"list",
+      "member":{
+        "shape":"TariffInstance",
+        "locationName":"item"
+      }
+    },
+    "TariffInstanceType": {
+      "type":"structure",
+      "members": {
+        "CCUs": {
+          "shape": "String",
+          "documentation": "<p>The amount of Compute Units.</p>",
+          "locationName": "ccus"
+        },
+        "CPU": {
+          "shape": "Integer",
+          "documentation": "<p>The number of cpu cores.</p>",
+          "locationName": "cpu"
+        },
+        "Deprecated": {
+          "shape": "Boolean",
+          "documentation": "<p>Determines whether a type is outdated.</p>",
+          "locationName": "deprecated"
+        },
+        "Memory": {
+          "shape": "Integer",
+          "documentation": "<p>The amount of RAM.</p>",
+          "locationName": "memory"
+        },
+        "Name": {
+          "shape": "String",
+          "documentation": "<p>The name of the instance type.</p>",
+          "locationName": "name"
+        },
+        "Category": {
+          "shape": "String",
+          "documentation": "<p>The category of the instance type.</p>",
+          "locationName": "category"
+        },
+        "Measure": {
+          "shape": "String",
+          "documentation": "<p>The measure of instance type usage.</p>",
+          "locationName": "measure"
+        },
+        "Description":  {
+          "shape": "String",
+          "documentation": "<p>The description of instance type.</p>",
+          "locationName": "description"
+        },
+        "CPUGenerationName": {
+          "shape": "String",
+          "documentation": "<p>The CPU generation name.</p>",
+          "locationName": "cpu_generation_name"
+        },
+        "Rates": {
+          "shape": "TariffRateList",
+          "documentation": "<p>List of instance type rates for availability zones. If the instance type can not be rated depending on the availability zone, the list contains just one object with availability_zone set to all.</p>",
+          "locationName": "rates"
+        },
+        "LocalizedNames":{
+          "shape": "TariffLocalizedNames",
+          "locationName": "localized_names"
+        }
+      }
+    },
+    "TariffInstanceTypeList": {
+      "type": "list",
+      "member": {
+        "shape": "TariffInstanceType",
+        "locationName":  "item"
+      }
+    },
+    "TariffLicenceParameters":{
+      "type": "structure",
+      "members": {
+        "CoreCount": {
+          "shape": "Integer",
+          "documentation": "<p>The number of cores.</p>",
+          "locationName": "core_count"
+        }
+      }
+    },
+    "TariffLicenceType": {
+      "type": "structure",
+      "members": {
+        "Base": {
+          "shape": "String",
+          "enum":[
+            "os_per_instance",
+            "os_per_core"
+          ],
+          "documentation": "<p>The license type.</p>",
+          "locationName": "base"
+        },
+        "Parameters": {
+          "shape": "TariffLicenceParameters",
+          "documentation": "<p>The license parameters.</p>",
+          "locationName": "parameters"
+        }
+      }
+    },
+    "TariffLocalizedNames": {
+      "type": "structure",
+      "members": {
+        "EN": {
+          "shape": "String",
+          "locationName": "en"
+        },
+        "RU": {
+          "shape": "String",
+          "locationName": "ru"
+        }
+      }
+    },
+    "TariffOS": {
+      "type":"structure",
+      "members": {
+        "Name": {
+          "shape": "String",
+          "documentation": "<p>The name of operating system.</p>",
+          "locationName": "name"
+        },
+        "LocalizedNames": {
+          "shape": "TariffLocalizedNames",
+          "locationName": "localized_names"
+        },
+        "Description": {
+          "shape": "String",
+          "documentation": "<p>The description of OS.</p>",
+          "locationName": "description"
+        },
+        "Rates": {
+          "shape": "TariffRateList",
+          "documentation": "<p>List of OS rates for availability zones. If the OS can not be rated depending on the availability zone, the list contains just one object with availability_zone set to all.</p>",
+          "locationName": "rates"
+        },
+        "Measure": {
+          "shape": "String",
+          "documentation": "<p>The measure of OS usage.</p>",
+          "locationName": "measure"
+        },
+        "Category": {
+          "shape": "String",
+          "documentation": "<p>The category of OS.</p>",
+          "locationName": "category"
+        },
+        "Deprecated": {
+          "shape": "Boolean",
+          "documentation": "<p>Determines whether a type is outdated.</p>",
+          "locationName": "deprecated"
+        },
+        "LicenceType": {
+          "shape": "TariffLicenceType",
+          "documentation": "<p>The licence type of OS.</p>",
+          "locationName": "licence_type"
+        }
+      }
+    },
+    "TariffOSList": {
+      "type": "list",
+      "member": {
+        "shape": "TariffOS",
+        "locationName":  "item"
+      }
+    },
+    "TariffRate":{
+      "type":"structure",
+      "members": {
+        "AvailabilityZone": {
+          "shape": "String",
+          "documentation": "<p>The availability zone name. If the service can not be rated depending on the availability zone, this field’s value equals all.</p>",
+          "locationName": "availability_zone"
+        },
+        "Price": {
+          "shape": "String",
+          "documentation": "<p>The price for the availability zone.</p>",
+          "locationName": "price"
+        }
+      }
+    },
+    "TariffRateList":{
+      "type":"list",
+      "member":{
+        "shape":"TariffRate",
+        "locationName":"item"
+      }
+    },
+    "TariffService":{
+      "type":"structure",
+      "members": {
+        "Deprecated": {
+          "shape": "Boolean",
+          "documentation": "<p>Determines whether a service is outdated.</p>",
+          "locationName": "deprecated"
+        },
+        "Description": {
+          "shape": "String",
+          "documentation": "<p>The description of the service.</p>",
+          "locationName": "description"
+        },
+        "Measure": {
+          "shape": "String",
+          "documentation": "<p>The measure of service usage.</p>",
+          "locationName": "measure"
+        },
+        "Name": {
+          "shape": "String",
+          "documentation": "<p>The service name.</p>",
+          "locationName": "name"
+        },
+        "Rates": {
+          "shape": "TariffRateList",
+          "documentation": "<p>List of service rates for availability zones. If the service can not be rated depending on the availability zone, the list contains just one object with availability_zone set to all.</p>",
+          "locationName": "rates"
+        }
+      }
+    },
+    "TariffServiceList":{
+      "type":"list",
+      "member":{
+        "shape":"TariffService",
+        "locationName":"item"
+      }
+    },
+    "TariffVolume":{
+      "type":"structure",
+      "members": {
+        "Deprecated": {
+          "shape": "Boolean",
+          "documentation": "<p>Determines whether a type is outdated.</p>",
+          "locationName": "deprecated"
+        },
+        "Description": {
+          "shape": "String",
+          "documentation": "<p>The description of the volume type.</p>",
+          "locationName": "description"
+        },
+        "IOPs": {
+          "shape": "Integer",
+          "documentation": "<p>The number of I/O operations per second.</p>",
+          "locationName": "iops"
+        },
+        "Measure": {
+          "shape": "String",
+          "documentation": "<p>The measure of service usage.</p>",
+          "locationName": "measure"
+        },
+        "Name": {
+          "shape": "String",
+          "documentation": "<p>The name of volume type.</p>",
+          "locationName": "name"
+        },
+        "Type": {
+          "shape": "String",
+          "documentation": "<p>The storage type.</p>",
+          "locationName": "type"
+        },
+        "Rates": {
+          "shape": "TariffRateList",
+          "documentation": "<p>List of rates for services with the volume type.</p>",
+          "locationName": "rates"
+        }
+      }
+    },
+    "TariffVolumeList":{
+      "type":"list",
+      "member":{
+        "shape":"TariffVolume",
+        "locationName":"item"
+      }
+  },
     "TelemetryStatus":{
       "type":"string",
       "enum":[
