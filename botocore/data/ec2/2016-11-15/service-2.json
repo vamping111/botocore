@@ -4409,6 +4409,16 @@
       "input":{"shape":"SendDiagnosticInterruptRequest"},
       "documentation":"<p>Sends a diagnostic interrupt to the specified Amazon EC2 instance to trigger a <i>kernel panic</i> (on Linux instances), or a <i>blue screen</i>/<i>stop error</i> (on Windows instances). For instances based on Intel and AMD processors, the interrupt is received as a <i>non-maskable interrupt</i> (NMI).</p> <p>In general, the operating system crashes and reboots when a kernel panic or stop error is triggered. The operating system can also be configured to perform diagnostic tasks, such as generating a memory dump file, loading a secondary kernel, or obtaining a call trace.</p> <p>Before sending a diagnostic interrupt to your instance, ensure that its operating system is configured to perform the required diagnostic tasks.</p> <p>For more information about configuring your operating system to generate a crash dump when a kernel panic or stop error occurs, see <a href=\"https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/diagnostic-interrupt.html\">Send a diagnostic interrupt</a> (Linux instances) or <a href=\"https://docs.aws.amazon.com/AWSEC2/latest/WindowsGuide/diagnostic-interrupt.html\">Send a Diagnostic Interrupt</a> (Windows instances).</p>"
     },
+    "SetBgpAsn": {
+      "name":"SetBgpAsn",
+      "http":{
+        "method":"POST",
+        "requestUri":"/"
+      },
+      "input":{"shape":"SetBgpAsnRequest"},
+      "output": {"shape":"SetBgpAsnResult"},
+      "documentation":"<p>Sets a unique autonomous system number (ASN) for a VPC. This method will help avoid conflicts of unique ASNs when creating VPN connections between different VPCs. Valid ASN values are from 64512 to 65535 inclusive, as well as 32-bit values from 4200000000 to 4294967294.\n\nIf the VPC contains resources (instances, VPN connections, etc.), you need to contact support to update the ASN correctly. If you try to update the ASN for such VPC, an error will return with the appropriate message.</p>"
+    },
     "StartInstances":{
       "name":"StartInstances",
       "http":{
@@ -4517,6 +4527,16 @@
       "input":{"shape":"UpdateSecurityGroupRuleDescriptionsIngressRequest"},
       "output":{"shape":"UpdateSecurityGroupRuleDescriptionsIngressResult"},
       "documentation":"<p>Updates the description of an ingress (inbound) security group rule. You can replace an existing description, or add a description to a rule that did not have one previously.</p> <p>You specify the description as part of the IP permissions structure. You can remove a description for a security group rule by omitting the description parameter in the request.</p>"
+    },
+    "UnsetBgpAsn": {
+      "name":"UnsetBgpAsn",
+      "http":{
+        "method":"POST",
+        "requestUri":"/"
+      },
+      "input":{"shape":"UnsetBgpAsnRequest"},
+      "output": {"shape":"UnsetBgpAsnResult"},
+      "documentation":"<p>Resets the preset value of the unique ASN for the VPC to its default value.\n\nIf the VPC contains resources (instances, VPN connections, etc.), you need to contact support to update the ASN correctly. If you try to update the ASN for such VPC, an error will return with the appropriate message.</p>"
     },
     "WithdrawByoipCidr":{
       "name":"WithdrawByoipCidr",
@@ -10086,6 +10106,11 @@
           "shape":"TagSpecificationList",
           "documentation":"<p>The tags to apply to the new network interface.</p>",
           "locationName":"TagSpecification"
+        },
+        "SwitchId":{
+          "shape":"String",
+          "documentation":"<p>The ID of the virtual switch.</p>",
+          "locationName":"switchId"
         }
       },
       "documentation":"<p>Contains the parameters for CreateNetworkInterface.</p>"
@@ -11610,6 +11635,11 @@
           "shape":"TagSpecificationList",
           "documentation":"<p>The tags to assign to the VPC.</p>",
           "locationName":"TagSpecification"
+        },
+        "AvailabilityZone": {
+          "shape":"String",
+          "documentation":"<p>The Availability Zone.</p>",
+          "locationName":"AvailabilityZone"
         }
       }
     },
@@ -17689,6 +17719,11 @@
         "MaxResults":{
           "shape":"DescribeSubnetsMaxResults",
           "documentation":"<p>The maximum number of results to return with a single call. To retrieve the remaining results, make another call with the returned <code>nextToken</code> value.</p>"
+        },
+        "VpcId":  {
+          "shape":"String",
+          "documentation":"<p>The ID of the VPC.</p>",
+          "locationName":"vpcId"
         }
       }
     },
@@ -35735,6 +35770,11 @@
           "shape":"String",
           "documentation":"<p>The source/destination checking attribute. Resets the value to <code>true</code>.</p>",
           "locationName":"sourceDestCheck"
+        },
+        "Attribute": {
+          "shape":"String",
+          "documentation":"<p>The network interface attribute.</p>",
+          "locationName":"Attribute"
         }
       },
       "documentation":"<p>Contains the parameters for ResetNetworkInterfaceAttribute.</p>"
@@ -37841,6 +37881,34 @@
       "member":{
         "shape":"ServiceTypeDetail",
         "locationName":"item"
+      }
+    },
+    "SetBgpAsnRequest": {
+      "type": "structure",
+      "required":[
+        "VpcId",
+        "Asn"
+      ],
+      "members": {
+        "VpcId": {
+          "shape": "String",
+          "documentation": "<p>The ID of the VPC.</p>",
+          "locationName": "vpcId"
+        },
+        "Asn":  {
+          "shape": "String",
+          "documentation": "<p>The unique autonomous system number (ASN).</p>",
+          "locationName": "asn"
+        }
+      }
+    },
+    "SetBgpAsnResult": {
+      "type": "structure",
+      "members": {
+        "Return": {
+          "shape": "Boolean",
+          "documentation": "<p>True is returned if the request succeeds, and an error otherwise</p>"
+        }
       }
     },
     "ShutdownBehavior":{
@@ -42177,6 +42245,28 @@
           "shape":"InstanceMonitoringList",
           "documentation":"<p>The monitoring information.</p>",
           "locationName":"instancesSet"
+        }
+      }
+    },
+    "UnsetBgpAsnRequest": {
+      "type": "structure",
+      "required":[
+        "VpcId"
+      ],
+      "members": {
+        "VpcId": {
+          "shape": "String",
+          "documentation": "<p>The ID of the VPC.</p>",
+          "locationName": "vpcId"
+        }
+      }
+    },
+    "UnsetBgpAsnResult": {
+      "type": "structure",
+      "members": {
+        "Return": {
+          "shape": "Boolean",
+          "documentation": "<p>True is returned if the request succeeds, and an error otherwise</p>"
         }
       }
     },
