@@ -50,7 +50,7 @@ rm -rf tests/integration
 * Tue Feb 4 2025 Vladimir Litvinov <vlitvinov@k2.cloud> - 1.20.14-ROCKIT55.rc1
 - admin: update models
 
-* Mon Jan 20 2025 Andrey Kulaev <akulaev@k2.cloud> - 1.20.14-ROCKIT54.rc2
+* Mon Jan 20 2025 Andrey Kulaev <akulaev@k2.cloud> - 1.20.14-ROCKIT54
 - paas: add method for kafka topics
 - iam: Add Tags into User shape
 - iam: Add Tag support for IAM Users
