@@ -4,7 +4,7 @@
 Name:           python-%{pkgname}
 # NOTICE - Updating this package requires updating python-boto3
 Version:        1.20.14
-Release:        ROCKIT55.rc2%{?buildid}%{?dist}
+Release:        ROCKIT55.rc3%{?buildid}%{?dist}
 Summary:        Low-level, data-driven core of boto 3
 
 License:        ASL 2.0
@@ -47,6 +47,10 @@ rm -rf tests/integration
 %{python3_sitelib}/%{pkgname}-*.egg-info/
 
 %changelog
+
+* Fri Feb 21 2025 Linar Nasyyrov <lnasyyrov@k2.cloud> - 1.20.14-ROCKIT55.rc3
+- remove cgi module usage, which causes deprecation warnings on Python 3.11
+
 * Mon Feb 10 2025 Evgenii Pozdniakov <epozdniakov@k2.cloud> - 1.20.14-ROCKIT55.rc2
 - s3: add missing shapes
 
